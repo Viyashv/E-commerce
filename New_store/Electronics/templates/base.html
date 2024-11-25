@@ -1,0 +1,75 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gada Electronics</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css"
+      integrity="sha512-3q8fi8M0VS+X/3n64Ndpp6Bit7oXSiyCnzmlx6IDBLGlY5euFySyJ46RUlqIVs0DPCGOypqP8IRk/EyPvU28mQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="stylesheet" href="/static/index.css"/>
+    <style>
+      /* Ensure image size consistency */
+      .card-img-top {
+        height: 250px !important; /* Fixed height for all images */
+        object-fit: contain !important; /* Ensures images cover the area without distortion */
+      }
+
+      /* Ensures cards stretch to the same height */
+      .card-body {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+      }
+
+      .col {
+        display: flex !important;
+        justify-content: center !important;
+      }
+
+      /* Fix button alignment and stretching */
+      .card-footer {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: flex-end !important;
+      }
+    </style>
+  </head>
+  <body>
+    {% block content %} {% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+      
+        // for Sweet Alert messages
+        {% if messages %}
+              {% for i in messages %}
+              swal({
+                html: true,  // Enable HTML rendering in the alert
+                text: "",  // Ensure Django doesn't escape the message here
+                content: {
+                  element: "p",
+                  attributes: {
+                    innerHTML: "{{ i.message|safe }}"
+                  }
+                }
+              });
+              {% endfor %}
+        {% endif %}
+    </script>
+  </body>
+</html>

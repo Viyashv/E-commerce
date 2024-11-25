@@ -1,0 +1,12 @@
+{% for i in categories %}
+            <li class="nav-item">
+                <a class="nav-link collapsed" href=""
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>{{ i.name }}</span>
+
+                </a>
+            </li>
+            <hr style="border: 2px solid blanchedalmond;">
+            
+            {% endfor %}

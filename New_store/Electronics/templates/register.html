@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% include "nav.html" %}
+
+    {% comment %} <nav class="navbar navbar-expand-lg navbar-light bg-dark  ">
+      <div class="container px-4 px-lg-5">
+          <a class="navbar-brand" href="#!" style="color: white;">Start Bootstrap</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                  <li class="nav-item"><a class="nav-link active" aria-current="page" href="/" style="color: white;">Home</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#!" style="color: white;">About</a></li>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">Shop</a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <li><a class="dropdown-item" href="#!">All Products</a></li>
+                          <li><hr class="dropdown-divider" /></li>
+                          <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+                          <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                      </ul>
+                  </li>
+              </ul>
+              <form class="d-flex">
+                  <button class="btn btn-outline-dark" type="submit" style="background-color: white;">
+                      <i class="bi-cart-fill me-1"></i>
+                      Cart
+                      <span class="badge text-white ms-1 rounded-pill" style="background-color: BLACK;">0</span>
+                  </button>
+              </form>
+              {% if user.is_authenticated %}
+              <div class="d-flex ms-2">
+                  <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+              {% else %}
+                  <a href="{% url 'login' %}" class="btn btn-dark ms-1 text-light">Login</a>
+                  <a href="{% url 'register' %}"class="btn btn-dark ms-1 text-light">Register</a>
+              {% endif %}
+          </div>
+      </div>
+  </nav>   {% endcomment %}
+
+      <!-- Section: Design Block -->
+<section class="background-radial-gradient overflow-hidden " style="padding-bottom: 12rem;">
+
+  <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+    <div class="row gx-lg-5 align-items-center mb-5" style="display: grid; place-items: center; margin-top: -13rem;">
+      <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+        <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+           <br />
+          <span style="color: hsl(218, 81%, 75%)"></span>
+        </h1>
+        <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
+          <!-- Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+          Temporibus, expedita iusto veniam atque, magni tempora mollitia
+          dolorum consequatur nulla, neque debitis eos reprehenderit quasi
+          ab ipsum nisi dolorem modi. Quos? -->
+        </p>
+      </div>
+
+      <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+        <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+        <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+
+        <div class="card bg-glass" style="background-color: hsl(0deg 0% 100% / 11%) !important; border: 1px solid #14aeed5e;
+            box-shadow: 0px -1px 32px 0 #100d15;">
+          <div class="card-body px-4 py-5 px-md-5">
+            <!-- <form> -->
+<form method='POST' class='p-0'>
+    {% csrf_token %}
+              <!-- 2 column grid layout with text inputs for the first and last names -->
+              <div class="d-flex align-items-center mb-3 pb-1">
+                <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                <span class="h1 fw-bold mb-0">Register</span>
+              </div>
+
+              <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px; color: white;">Register into your account</h5>
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="form-outline form-floating">
+                        <input type="text" id="name" oninput="this.value=(this.value.match('[a-zA-Z]+'))" class="form-control" placeholder="First Name" name="firstname" data-sb-validations="required"/>
+                        <label class="form-label" for="name">First name</label>
+                        <div class="invalid-feedback" data-sb-feedback="name:required">
+                             A name is required.
+                        </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div class="form-floating">
+                    <input type="text" id="form3Example2" class="form-control"  placeholder="Last Name" name="lastname"/>
+                    <label class="form-label" for="form3Example2">Last name</label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Email input -->
+              <div class="form-floating mb-4">
+                <input type="email" id="form3Example3" class="form-control" placeholder="Email" name="email"/>
+                <label class="form-label" for="form3Example3">Email address</label>
+              </div>
+
+              <!-- Password input -->
+              <div class="form-floating mb-4 d-flex border bg-light rounded-2">
+                <input type="password" id="pass" class="form-control border-0 bg-transparent shadow-none" placeholder="pass" name="password"/>
+                <label class="form-label bg-transparent" for="pass">Password</label>
+                <span class="d-flex align-items-center m-2" onclick="hideShow()" >
+                  <svg id="show" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye text-dark" viewBox="0 0 16 16">
+                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                  </svg>
+                </span>
+              </div>
+
+              <!-- Submit button -->
+              <div>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">submit</button>
+
+              </div>
+
+              <p class="mb-2 pb-lg-2 " style="color: #ffffff;">Already a Member? <a href="{% url 'login' %}"
+                style="color: #e6e6e6;">Login here</a></p>
+
+
+            <!-- </form> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    </section>
+    <!-- Section: Design Block -->
+</form>
+                                                   {% comment %} Footer {% endcomment %}
+<footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-light">Copyright &copy; Your Website 2023</p></div>
+  </footer>
+                    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+<script>
+  function hideShow(){
+    let pass = document.getElementById("pass");
+
+    let attr = pass.getAttribute("type")
+
+    let icon = document.getElementById('show')
+    
+    if(attr == 'password'){
+        pass.setAttribute('type', 'text')
+        
+        icon.innerHTML = `<svg id="show" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16">
+                                <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/>
+                                <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
+                                <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>
+                        </svg>`
+    }
+    else{
+        pass.setAttribute('type', 'password')
+        
+        icon.innerHTML = `<svg id="show" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                        </svg>`
+    }
+}
+</script>
+
+{% endblock %}
