@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render , redirect
 from django.contrib.auth.models import auth , User
 from django.contrib.auth import logout , authenticate , login
@@ -34,6 +35,7 @@ def home (request):
 
 def login(request):
     categories = Category.objects.all()
+    counts = Cart.objects.all().count()-1
     if request.POST:
         email = request.POST['email']
         pwd = request.POST['password']
@@ -57,11 +59,13 @@ def login(request):
             messages.error(request ,"Password is incorrect")
             return redirect('login')
 
-    return render(request , 'login.html',{"categories":categories})
+    return render(request , 'login.html',{"categories":categories,
+                                               "counts":counts})
 
 
 def register(request):
     categories = Category.objects.all()
+    counts = Cart.objects.all().count()-1
     if request.POST:
         firstname = request.POST["firstname"]
         lastname = request.POST["lastname"]
@@ -84,7 +88,8 @@ def register(request):
             return redirect('login')
 
 
-    return render(request , 'register.html',{"categories":categories})
+    return render(request , 'register.html',{"categories":categories,
+                                               "counts":counts})
 
 
 
@@ -110,20 +115,16 @@ def cate(request , id):
     categories = Category.objects.all()
     s_category = Com.objects.filter(ct = id)
     product = Product.objects.filter(category = id)
-    return render(request , "category.html" , {"categories":categories , 'product':product , "s_category":s_category})
+    counts = Cart.objects.all().count()-1
+    return render(request , "category.html" , {"categories":categories , 'product':product , "s_category":s_category,"counts":counts})
 
 
 
 def sub_category(request , id):
     categories = Category.objects.all()
-    sub = Com.objects.get(id = id)
-    print(sub , "   @   @   .   .   .   .   .   .   .   '   '   ;   ';  '   '   ;   '   ]   ]   ]   ]]  ]   ]   ]   ]   ]   ]   ]")
-    # fill = Com.objects.get(ct = id)
-    # print(fill,"    /   /   /   /   /   /   /   /   /   /   /   /   /   ./  .   /   /   /   /   /   /   /   /   /")
-    s_category = Com.objects.filter(ct = id)
-    print(s_category,"  .   .   .   /   .   /.  /   .   /   ./  .   /   .   /   .   /   .   /   .   /   ./  .   /   .   /   .   ")
     product = Product.objects.filter(brand = id)
-    return render(request , "category.html" , {"categories":categories ,'product':product, "s_category":s_category})
+    counts = Cart.objects.all().count()-1
+    return render(request , "category.html" , {"categories":categories ,'product':product ,"counts":counts})
 
 
 
@@ -215,8 +216,9 @@ def delete_product(request , id):
 
 def about(request):
     categories = Category.objects.all()
-
-    return render (request , "about.html",{"categories":categories})
+    counts = Cart.objects.all().count()-1
+    return render (request , "about.html",{"categories":categories ,
+                                               "counts":counts})
 
 
 def slider(request):
@@ -225,10 +227,8 @@ def slider(request):
     return render (request , "slider.html",{"categories":categories , "all":all })
 
 
-def sCate(request , brand):
-    pass
-
 @csrf_exempt
 def success(request):
     messages.success(request ,f'Successfully Purchased')
     return redirect('home')
+

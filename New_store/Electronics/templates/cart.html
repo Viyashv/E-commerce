@@ -15,7 +15,7 @@
       <div class="col-md-8">
         <div class="card-body">
           <h5 class="card-title">{{ i.products.name }}</h5>
-          <p class="card-text">{{ i.products.description }}</p>
+          <p class="card-text">{{ i.products.description|truncatewords:30 }}</p>
                         <div class="fs-5 mb-3">
                             {% comment %} <span class="text-decoration-line-through">{{ id_product.prize }}</span> {% endcomment %}
                             <span>₹ {{ i.products.price }} </span>
