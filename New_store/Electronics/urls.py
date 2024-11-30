@@ -16,6 +16,7 @@ urlpatterns = [
     path('product/<int:id>', products_all , name='product'),
     path('about/', about , name='about'),
     path('slider/', slider , name='slider'),
+    path('update/<int:id>', update , name='update'),
     path('cart/paymenthandler/', success , name='success'),
     # path('pay/', pay , name='pay'),
 ]

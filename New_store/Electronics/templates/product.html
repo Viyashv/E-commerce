@@ -5,26 +5,22 @@
  <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6" style="border: 2px solid;">
+                    <div class="col-md-6" >
                         <img class="card-img-top mb-5 mb-md-0" src="{{ products.image.url }}" alt="..." loading="lazy"/>
                     </div>
                     <div class="col-md-6">
                         {% comment %} <div class="small mb-1">SKU: BST-498</div> {% endcomment %}
-                        <h1 class="display-5 fw-bolder">{{ products.name }}</h1>
-                        <div class="fs-5 mb-5">
-                            {% comment %} <span class="text-decoration-line-through">{{ id_product.prize }}</span> {% endcomment %}
-                            <span>₹ {{ products.price }} </span>
+                        <h1 class="display-5 fw-bolder mb-md-4">Name :- {{ products.name }}</h1>
+                        <div class="fs-5 mb-md-4">
+                            {% comment %} <span class="text-decoration-line-through mb-2">{{ id_product.prize }}</span> {% endcomment %}
+                            <span>Prize :- ₹ {{ products.price }} </span>
                         </div>
                         <p class="lead">{{ products.description }}</p>
-                        <form action="{% url 'add' products.id %}" method="POST">
-                            {% csrf_token %}
-                            <div class="d-flex">
-                                <input class="form-control text-center me-3" id="inputQuantity" name="quantity" type="number" value="1" min="1" max="10" style="max-width: 3rem" />
-                                <button type="submit" class="btn btn-outline-dark flex-shrink-0">
+                            <div>
+                                <a href="{% url 'add' products.id %}" class="btn btn-outline-success w-100">
                                     Add to cart
-                                </button>
+                                </a>
                             </div>
-                        </form>
                     </div>
                 </div>
             </div>

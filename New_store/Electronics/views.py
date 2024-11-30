@@ -11,7 +11,6 @@ from django.views.decorators.csrf import csrf_exempt
 # from django.contrib.gis.geoip2 import GeoIP2
 import django
 
-from django.views.generic import ListView , DeleteView
  
 # Create your views here.
 
@@ -83,7 +82,10 @@ def register(request):
             messages.error(request , "Please fill all the fields")
             return redirect("register")
         else:
-            new_user = User.objects.create_user(first_name = firstname , last_name = lastname , username = email , password = password)
+            new_user = User.objects.create_user(first_name = firstname ,
+                                                 last_name = lastname ,
+                                                 username = email ,
+                                                 password = password)
             new_user.save()
             return redirect('login')
 
@@ -102,12 +104,16 @@ def logout_user(request):
 def products_all(request , id):
     categories = Category.objects.all()
 
+    counts = Cart.objects.all().count()-1
+
     products = Product.objects.get(id = id)
-    # print(products.category)
 
     product = Product.objects.filter(category = products.category).exclude(id = id)[:4]
 
-    return render(request , "product.html",{'products':products ,"categories":categories , 'product':product})
+    return render(request , "product.html",{'products':products ,
+                                            "categories":categories ,
+                                             'product':product,
+                                             "counts":counts})
 
 
 
@@ -116,7 +122,10 @@ def cate(request , id):
     s_category = Com.objects.filter(ct = id)
     product = Product.objects.filter(category = id)
     counts = Cart.objects.all().count()-1
-    return render(request , "category.html" , {"categories":categories , 'product':product , "s_category":s_category,"counts":counts})
+    return render(request , "category.html" , {"categories":categories ,
+                                             'product':product ,
+                                             "s_category":s_category,
+                                            "counts":counts})
 
 
 
@@ -124,7 +133,9 @@ def sub_category(request , id):
     categories = Category.objects.all()
     product = Product.objects.filter(brand = id)
     counts = Cart.objects.all().count()-1
-    return render(request , "category.html" , {"categories":categories ,'product':product ,"counts":counts})
+    return render(request , "category.html" , {"categories":categories ,
+                                               'product':product ,
+                                               "counts":counts})
 
 
 
@@ -132,19 +143,20 @@ razorpay_client = razorpay.Client(
     auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
 def cart(request):
     if request.user.is_authenticated:
+        counts = Cart.objects.all().count()-1
         categories = Category.objects.all()
         pro = Cart.objects.filter(user = request.user)
-        print(f"Cart items for user {request.user}: {pro}")
+        # print(f"Cart items for user {request.user}: {pro}")
 
-        for item in pro:
-            print(f"Product: {item.products}, Price: {item.products.price}, Quantity: {item.quantity}")
+        # for item in pro:
+        #     print(f"Product: {item.products}, Price: {item.products.price}, Quantity: {item.quantity}")
 
 
         sub_total = sum([i.products.price * i.quantity for i in pro])
-        print(f'{sub_total}')
+        # print(f'{sub_total}')
         discount_price = float(sub_total) * 0.15
         final_price = float(sub_total) - discount_price
-        print(f"sub Total :-  {sub_total} - Discount {discount_price} -Final :- {final_price}")
+        # print(f"sub Total :-  {sub_total} - Discount {discount_price} -Final :- {final_price}")
 
         if sub_total > 0:
                 
@@ -169,28 +181,25 @@ def cart(request):
                 context['callback_url'] = callback_url
             
                 return render(request, "cart.html",{"categories":categories ,
-                                                     "pro":pro ,"sub_total":sub_total,
+                                                     "pro":pro ,
+                                                     "sub_total":sub_total,
                                                      "discount_price":discount_price,
                                                      "final_price":final_price ,
-                                                     "context" : context})
+                                                     "context" : context,
+                                                     "counts":counts})
 
         return render(request , "cart.html",{"categories":categories ,
                                               "pro":pro ,
                                               "sub_total":sub_total,
                                               "discount_price":discount_price,
-                                              "final_price":final_price})
+                                              "final_price":final_price,
+                                              "counts":counts})
     return redirect('login')
 
 
 
 def add_cart(request , id):
     if request.user.is_authenticated:
-        if Cart.objects.filter(products = id).exists():
-            Ql = Cart.objects.get(products = id) 
-            Ql.quantity +=1
-            Ql.save()
-            return redirect('cart')
-        
         user = request.user
         new = Product.objects.get(id = id)
         pro = Cart.objects.create(products = new, user = user)
@@ -199,19 +208,29 @@ def add_cart(request , id):
     return redirect('login')
     
 
+def update(request , id):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            quantity = request.POST.get('quantity')
+            updt_item = Cart.objects.get(id = id)
+            updt_item.quantity = int(quantity)
+            updt_item.save()
+            return redirect('cart')
+    return redirect('login')
+
+
 def delete_product(request , id):
-     print(id)
-     if Cart.objects.filter(products = id).exists():
-            print("satisfiy .   .   .   .   .   .   .   .   .   ..  .   .   .   .   .   .")
-            Ql = Cart.objects.get(products = id) 
-            Ql.quantity -=1
+    if request.POST:
+        Quan = request.POST.get('quantity')
+        Ql = Cart.objects.get(id = id)
+        if Ql.quantity == 1:
+            Ql.delete()
+            messages.success(f"Removed Item from Cart")
+            return redirect('home')
+        else:
+            Ql.quantity -= int(Quan)
             Ql.save()
             return redirect('cart')
-     else:
-        print("Not satisfiyng   .   ..  .   .   .   .   ..  .   .   .   .   .   .   .")
-        trash = Cart.objects.get(id = id)
-        trash.delete()
-        return redirect('cart')
      
 
 def about(request):
@@ -224,11 +243,12 @@ def about(request):
 def slider(request):
     categories = Category.objects.all()
     all =Product.objects.all() 
-    return render (request , "slider.html",{"categories":categories , "all":all })
+    return render (request , "slider.html",{"categories":categories ,
+                                             "all":all })
 
 
 @csrf_exempt
 def success(request):
     messages.success(request ,f'Successfully Purchased')
-    return redirect('home')
+    return redirect('cart')
 

@@ -47,6 +47,16 @@
         justify-content: center !important;
         align-items: flex-end !important;
       }
+      #inputQuantity::-webkit-inner-spin-button,
+      #inputQuantity::-webkit-outer-spin-button {
+        -webkit-appearance: none !important;
+        margin: 0 !important;
+      }
+    
+      #inputQuantity {
+        -moz-appearance: textfield !important;
+        appearance: textfield !important;
+      }
     </style>
   </head>
   <body>
@@ -70,6 +80,22 @@
               });
               {% endfor %}
         {% endif %}
+        <!-- for form Validation -->
+          // Wait for the DOM to be ready
+  document.addEventListener('DOMContentLoaded', function () {
+    var forms = document.querySelectorAll('.needs-validation');
+    
+    // Loop over the forms and prevent submission if invalid
+    Array.prototype.slice.call(forms).forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  });
     </script>
   </body>
 </html>
