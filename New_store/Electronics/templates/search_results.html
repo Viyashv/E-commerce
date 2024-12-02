@@ -1,0 +1,48 @@
+{% extends "base.html" %} {% block content %} {% include "nav.html" %}
+
+<h1 class="text-center mt-2">
+    {% if results %}
+        Search Results for "{{ query }}"<!-- Access the category of the first product -->
+        {% else %}
+        Search Results
+    {% endif %}
+</h1>
+
+{% if results %}
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+      <div
+        class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-lg-4 justify-content-center"
+      >
+        {% for i in results %}
+        <div class="col mb-4">
+          <div class="card h-100 border-dark hover-zoom d-flex align-items-center">
+            <!-- Product image -->
+            <img class="card-img-top mt-2 w-90" src="{{ i.image.url }}" alt="..." loading="lazy">
+        
+            <!-- Product details -->
+            <div class="card-body d-flex flex-column justify-content-between p-3">
+              <div class="text-center">
+                <h5 class="fw-bolder">{{ i.name }}</h5>
+                ₹ {{ i.price }}
+              </div>
+            </div>
+        
+            <!-- Product actions -->
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+              <div class="text-center w-100">
+                <a class="btn btn-outline-dark mt-auto w-100" href="{% url 'product' i.id %}">View options</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {% endfor %}
+      </div>
+    </div>
+</section>
+{% else %}
+    <p class="text-center">No results found for "{{ query }}".</p>
+{% endif %}
+
+{% endblock %}

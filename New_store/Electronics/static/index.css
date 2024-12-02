@@ -11053,3 +11053,53 @@ legend.scheduler-border {
 
   /* End slider */
 
+/* Cards Effects and Silder Css*/
+
+
+      /* Ensure image size consistency */
+      .card-img-top {
+        height: 250px !important; /* Fixed height for all images */
+        object-fit: contain !important; /* Ensures images cover the area without distortion */
+        width:90% !important;
+      }
+
+      /* Ensures cards stretch to the same height */
+      .card-body {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+      }
+
+      .col {
+        display: flex !important;
+        justify-content: center !important;
+      }
+
+      /* Fix button alignment and stretching */
+      .card-footer {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: flex-end !important;
+      }
+      #inputQuantity::-webkit-inner-spin-button,
+      #inputQuantity::-webkit-outer-spin-button {
+        -webkit-appearance: none !important;
+        margin: 0 !important;
+      }
+    
+      #inputQuantity {
+        -moz-appearance: textfield !important;
+        appearance: textfield !important;
+      }
+      .carousel-inner img {
+        height: 300px !important; /* Set the desired height */
+        object-fit: cover; /* Prevent image distortion */
+    }
+    .hover-zoom {
+      transition: transform 0.3s ease-in-out; /* Smooth transition for scaling */
+    }
+    
+    .hover-zoom:hover {
+      transform: scale(1.05); /* Slight zoom effect */
+      box-shadow: 0 8px 20px 20px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for emphasis */
+    }

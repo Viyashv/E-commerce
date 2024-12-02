@@ -10,6 +10,7 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 # from django.contrib.gis.geoip2 import GeoIP2
 import django
+from django.db.models import Q
 
  
 # Create your views here.
@@ -22,14 +23,7 @@ def home (request):
     products = Product.objects.all()
     categories = Category.objects.all()
     counts = Cart.objects.all().count()-1
-    print(counts)
-    log_user = request.user
-    log_time = datetime.datetime.today()
-    return render(request , "index.html" , {"products":products ,
-                                             "categories":categories ,
-                                             "log_user":log_user ,
-                                               "log_time":log_time,
-                                               "counts":counts})
+    return render(request , "index.html" , {"products":products ,"categories":categories ,"counts":counts})
 
 
 def login(request):
@@ -146,17 +140,10 @@ def cart(request):
         counts = Cart.objects.all().count()-1
         categories = Category.objects.all()
         pro = Cart.objects.filter(user = request.user)
-        # print(f"Cart items for user {request.user}: {pro}")
-
-        # for item in pro:
-        #     print(f"Product: {item.products}, Price: {item.products.price}, Quantity: {item.quantity}")
-
 
         sub_total = sum([i.products.price * i.quantity for i in pro])
-        # print(f'{sub_total}')
         discount_price = float(sub_total) * 0.15
         final_price = float(sub_total) - discount_price
-        # print(f"sub Total :-  {sub_total} - Discount {discount_price} -Final :- {final_price}")
 
         if sub_total > 0:
                 
@@ -252,3 +239,10 @@ def success(request):
     messages.success(request ,f'Successfully Purchased')
     return redirect('cart')
 
+def search_view(request):
+    query = request.GET.get('search')  # Get the search query from the GET request
+    results = Product.objects.none()  # Default to no results
+    counts = Cart.objects.all().count()-1
+    if query:
+        results = Product.objects.filter(Q(name__icontains=query)|Q(brand__brand__icontains=query))  # Filter products based on the search query
+    return render(request, 'search_results.html', {'results': results, 'query': query ,"counts":counts})

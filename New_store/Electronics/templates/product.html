@@ -2,20 +2,18 @@
 
 {% block content %}
 {% include "nav.html" %}
- <section class="py-5">
+ <section class="py-5 bg-light">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6" >
                         <img class="card-img-top mb-5 mb-md-0" src="{{ products.image.url }}" alt="..." loading="lazy"/>
                     </div>
                     <div class="col-md-6">
-                        {% comment %} <div class="small mb-1">SKU: BST-498</div> {% endcomment %}
-                        <h1 class="display-5 fw-bolder mb-md-4">Name :- {{ products.name }}</h1>
+                        <h3 class="mb-md-4"><span class="display-6 fw-bolder ">Name :- </span>{{ products.name }}</h3>
                         <div class="fs-5 mb-md-4">
-                            {% comment %} <span class="text-decoration-line-through mb-2">{{ id_product.prize }}</span> {% endcomment %}
                             <span>Prize :- ₹ {{ products.price }} </span>
                         </div>
-                        <p class="lead">{{ products.description }}</p>
+                        <p class="lead"><span class="fw-bolder">Description :- </span>{{ products.description }}</p>
                             <div>
                                 <a href="{% url 'add' products.id %}" class="btn btn-outline-success w-100">
                                     Add to cart
@@ -25,10 +23,11 @@
                 </div>
             </div>
  </section>
+ <!-- Related Products Section-->
          <section class="py-5 bg-light">
             <div class="container px-4 px-lg-5 mt-5">
-                <hr class="border border-dark">     
                 <h2 class="fw-bolder mb-4">Related products</h2>
+                <hr class="border border-dark">     
 
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 {% for j in product %}
@@ -36,7 +35,7 @@
                     <div class="col mb-5">
                         <div class="card h-100 ">
                             <!-- Product image-->
-                            <img class="card-img-top" src="{{ j.image.url }}" alt="..." loading="lazy"/>
+                            <img class="card-img-top mt-2" src="{{ j.image.url }}" alt="..." loading="lazy"/>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">

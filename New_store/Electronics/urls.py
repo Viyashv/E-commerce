@@ -18,5 +18,6 @@ urlpatterns = [
     path('slider/', slider , name='slider'),
     path('update/<int:id>', update , name='update'),
     path('cart/paymenthandler/', success , name='success'),
+    path('search/', search_view, name='search'),
     # path('pay/', pay , name='pay'),
 ]

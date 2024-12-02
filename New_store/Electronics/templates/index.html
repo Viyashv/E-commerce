@@ -1,8 +1,8 @@
 {% extends "base.html" %} {% block content %} {% include "nav.html" %}
 
-<header class="bg-dark">
-  <div id="carouselExampleIndicators" class="carousel slide mt-4">
-    <div class="carousel-indicators" style="background-color: #00000045">
+<header class="mt-4 bg-dark">
+  <div id="carouselExampleIndicators" class="carousel slide">
+    <div class="carousel-indicators bg-dark mb-0">
       {% for j in products %}
       <div class="dot" data-bs-target="#carouselExampleIndicators"></div>
       {% endfor %}
@@ -10,13 +10,14 @@
     <div class="carousel-inner">
       {% for i in products %}
       <div class="mySlides carousel-item active">
+        <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
         <img
           src="{{ i.image.url }}"
-          class="d-block w-100"
           alt="..."
-          style="height: 300px"
+          class="m-2"
           loading="lazy"
         />
+        </div>
       </div>
       {% endfor %}
     </div>
@@ -30,15 +31,10 @@
     >
       {% for i in products %}
       <div class="col mb-4">
-        <div class="card h-100 border-dark">
+        <div class="card h-100 border-dark hover-zoom d-flex align-items-center">
           <!-- Product image -->
-          <img
-            class="card-img-top"
-            src="{{ i.image.url }}"
-            alt="..."
-            loading="lazy"
-          />
-
+          <img class="card-img-top mt-2 w-90" src="{{ i.image.url }}" alt="..." loading="lazy">
+      
           <!-- Product details -->
           <div class="card-body d-flex flex-column justify-content-between p-3">
             <div class="text-center">
@@ -46,19 +42,16 @@
               ₹ {{ i.price }}
             </div>
           </div>
-
+      
           <!-- Product actions -->
           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div class="text-center w-100">
-              <a
-                class="btn btn-outline-dark mt-auto w-100"
-                href="{% url 'product' i.id %}"
-                >View options</a
-              >
+              <a class="btn btn-outline-dark mt-auto w-100" href="{% url 'product' i.id %}">View options</a>
             </div>
           </div>
         </div>
       </div>
+      
       {% endfor %}
     </div>
   </div>

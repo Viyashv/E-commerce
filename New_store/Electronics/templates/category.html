@@ -51,13 +51,13 @@
     <!-- End of Sidebar -->
 
     <!-- Main Content -->
-    <div class="container-fluid">
+    <div class="container-fluid mt-4">
         <div class="row gx-3 gx-lg-3 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
             {% for j in product %}
             <div class="col mb-5">
                 <div class="card h-100 border-dark shadow">
                     <!-- Product image-->
-                    <img class="card-img-top" src="{{ j.image.url }}" alt="{{ j.name }}" loading="lazy">
+                    <img class="card-img-top mt-2" src="{{ j.image.url }}" alt="{{ j.name }}" loading="lazy">
                     <!-- Product details-->
                     <div class="card-body p-4">
                         <div class="text-center">
