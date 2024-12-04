@@ -19,5 +19,6 @@ urlpatterns = [
     path('update/<int:id>', update , name='update'),
     path('cart/paymenthandler/', success , name='success'),
     path('search/', search_view, name='search'),
+    path('products/', sort_products, name='sort_products')
     # path('pay/', pay , name='pay'),
 ]

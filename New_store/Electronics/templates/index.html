@@ -2,30 +2,56 @@
 
 <header class="mt-4 bg-dark">
   <div id="carouselExampleIndicators" class="carousel slide">
+    <!-- Dots -->
     <div class="carousel-indicators bg-dark mb-0">
       {% for j in products %}
       <div class="dot" data-bs-target="#carouselExampleIndicators"></div>
       {% endfor %}
     </div>
+  
+    <!-- Slides -->
     <div class="carousel-inner">
       {% for i in products %}
-      <div class="mySlides carousel-item active">
+      <div class="mySlides carousel-item">
         <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
-        <img
-          src="{{ i.image.url }}"
-          alt="..."
-          class="m-2"
-          loading="lazy"
-        />
+          <img
+            src="{{ i.image.url }}"
+            alt="..."
+            class="m-2"
+            loading="lazy"
+          />
         </div>
       </div>
       {% endfor %}
     </div>
+  
+    <!-- Next and Previous Buttons -->
+    <button class="carousel-control-prev" onclick="changeSlide(-1)">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" onclick="changeSlide(1)">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
 </header>
 <!-- Section-->
 <section class="py-5">
   <div class="container px-4 px-lg-5 mt-5">
+    <div class="nav-item dropdown d-flex justify-content-end">
+      <h3 class="nav-link dropdown-toggle fs-5" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="true">Featured</h3>
+      <ul class="dropdown-menu text-center" aria-labelledby="navbarDropdown" style="left: 0 !important; right: auto !important; transform: translate(0, 0) !important;">
+          <li><a class="dropdown-item" href="{% url 'sort_products' %}?sort=a-z">Sort: A-Z</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="{% url 'sort_products' %}?sort=z-a">Sort: Z-A</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="{% url 'sort_products' %}?sort=low-to-high">Price: Low to High</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="{% url 'sort_products' %}?sort=high-to-low">Price: High to Low</a></li>
+      </ul>
+  </div>
+    <hr class="border-5 border-dark">
     <div
       class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-lg-4 justify-content-center"
     >
@@ -73,17 +99,39 @@
     let dots = document.getElementsByClassName("dot");
     for (i = 0; i < slides.length; i++) {
       slides[i].style.display = "none";
-      // console.log(slideIndex)
     }
     slideIndex++;
-    if (slideIndex > slides.length) {slideIndex = 1}
+    if (slideIndex > slides.length) { slideIndex = 1 }
     for (i = 0; i < dots.length; i++) {
       dots[i].className = dots[i].className.replace(" active", "");
     }
-
-    slides[slideIndex-1].style.display = "block";
-    dots[slideIndex-1].className += " active";
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
     setTimeout(showSlides, 2000); // Change image every 2 seconds
+  }
+
+  function changeSlide(n) {
+    slideIndex += n;
+    if (slideIndex > document.getElementsByClassName("mySlides").length) {
+      slideIndex = 1;
+    }
+    if (slideIndex < 1) {
+      slideIndex = document.getElementsByClassName("mySlides").length;
+    }
+    showSlideDirectly(slideIndex);
+  }
+
+  function showSlideDirectly(index) {
+    let slides = document.getElementsByClassName("mySlides");
+    let dots = document.getElementsByClassName("dot");
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (let i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[index - 1].style.display = "block";
+    dots[index - 1].className += " active";
   }
 
 </script>

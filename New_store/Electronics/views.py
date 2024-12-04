@@ -246,3 +246,17 @@ def search_view(request):
     if query:
         results = Product.objects.filter(Q(name__icontains=query)|Q(brand__brand__icontains=query))  # Filter products based on the search query
     return render(request, 'search_results.html', {'results': results, 'query': query ,"counts":counts})
+
+def sort_products(request):
+    counts = Cart.objects.all().count()-1
+    categories = Category.objects.all()
+    sort_option = request.GET.get('sort' , "a-Z")
+    if sort_option == 'a-z':
+        products = Product.objects.order_by('name')
+    elif sort_option == 'z-a':
+        products = Product.objects.order_by('-name')
+    elif sort_option == 'low-to-high':
+        products = Product.objects.order_by('price')
+    elif sort_option == 'high-to-low':
+        products = Product.objects.order_by('-price')
+    return render(request , "index.html" , {"products":products ,"categories":categories ,"counts":counts})
