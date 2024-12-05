@@ -123,15 +123,20 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+# Store files in a directory called static in the project root
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 
-
-
+# Razorpay settings
 RAZOR_KEY_ID = "rzp_test_nuzX7o29I8JwF7"
 RAZOR_KEY_SECRET = "tATplFrFZi1nGokcK5aocCPX"
-
-
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
+
+# Set Up Email Configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Or your email provider's SMTP server
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'viyashturkane@gmail.com'
+EMAIL_HOST_PASSWORD = 'vavjktuzvlfrgwxf'

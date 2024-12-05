@@ -1,8 +1,8 @@
-
-
-# from django.contrib import admin
 from django.urls import path
 from .views import *
+from django.contrib.auth import views as auth_views
+
+# from django.contrib import admin
 urlpatterns = [
     path('', home , name='home'),
     path('login/', login , name='login'),
@@ -19,6 +19,11 @@ urlpatterns = [
     path('update/<int:id>', update , name='update'),
     path('cart/paymenthandler/', success , name='success'),
     path('search/', search_view, name='search'),
-    path('products/', sort_products, name='sort_products')
+    path('products/', sort_products, name='sort_products'),
+        # Password reset views
+    path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     # path('pay/', pay , name='pay'),
 ]

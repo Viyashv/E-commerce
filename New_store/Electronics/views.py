@@ -239,6 +239,7 @@ def success(request):
     messages.success(request ,f'Successfully Purchased')
     return redirect('cart')
 
+# Fuction to handle search bar logic
 def search_view(request):
     query = request.GET.get('search')  # Get the search query from the GET request
     results = Product.objects.none()  # Default to no results
@@ -247,6 +248,7 @@ def search_view(request):
         results = Product.objects.filter(Q(name__icontains=query)|Q(brand__brand__icontains=query))  # Filter products based on the search query
     return render(request, 'search_results.html', {'results': results, 'query': query ,"counts":counts})
 
+# Fuction to sort the home page Products
 def sort_products(request):
     counts = Cart.objects.all().count()-1
     categories = Category.objects.all()
