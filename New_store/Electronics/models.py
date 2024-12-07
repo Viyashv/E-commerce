@@ -37,7 +37,8 @@ class Product(models.Model):
     sale_price = models.DecimalField(default = 0 , max_digits = 10 , decimal_places = 2)
 
     def __str__(self):
-        return "ID : -" + " "+str(self.id)+ " "+" Name : -" + " "+str(self.name) 
+        return f"Id :- {self.id} - Name :- {self.name} - Category :- {self.category}"
+
 
 
 

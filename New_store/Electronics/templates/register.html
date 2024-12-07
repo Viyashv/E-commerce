@@ -66,7 +66,7 @@
             box-shadow: 0px -1px 32px 0 #100d15;">
           <div class="card-body px-4 py-5 px-md-5">
             <!-- <form> -->
-<form method='POST' class='p-0'>
+<form method='POST' class="needs-validation p-0" novalidate>
     {% csrf_token %}
               <!-- 2 column grid layout with text inputs for the first and last names -->
               <div class="d-flex align-items-center mb-3 pb-1">
@@ -78,16 +78,13 @@
               <div class="row">
                 <div class="col-md-6 mb-4">
                     <div class="form-outline form-floating">
-                        <input type="text" id="name" oninput="this.value=(this.value.match('[a-zA-Z]+'))" class="form-control" placeholder="First Name" name="firstname" data-sb-validations="required"/>
+                        <input type="text" id="name" required oninput="this.value=(this.value.match('[a-zA-Z]+'))" class="form-control" placeholder="First Name" name="firstname" data-sb-validations="required"/>
                         <label class="form-label" for="name">First name</label>
-                        <div class="invalid-feedback" data-sb-feedback="name:required">
-                             A name is required.
-                        </div>
-                  </div>
+                    </div>
                 </div>
                 <div class="col-md-6 mb-4">
                   <div class="form-floating">
-                    <input type="text" id="form3Example2" class="form-control"  placeholder="Last Name" name="lastname"/>
+                    <input type="text" id="form3Example2" class="form-control"  placeholder="Last Name" name="lastname" required/>
                     <label class="form-label" for="form3Example2">Last name</label>
                   </div>
                 </div>
@@ -95,13 +92,13 @@
 
               <!-- Email input -->
               <div class="form-floating mb-4">
-                <input type="email" id="form3Example3" class="form-control" placeholder="Email" name="email"/>
+                <input type="email" id="form3Example3" class="form-control" placeholder="Email" name="email" required/>
                 <label class="form-label" for="form3Example3">Email address</label>
               </div>
 
               <!-- Password input -->
               <div class="form-floating mb-4 d-flex border bg-light rounded-2">
-                <input type="password" id="pass" class="form-control border-0 bg-transparent shadow-none" placeholder="pass" name="password"/>
+                <input type="password" id="pass" class="form-control border-0 bg-transparent shadow-none" placeholder="pass" name="password" required/>
                 <label class="form-label bg-transparent" for="pass">Password</label>
                 <span class="d-flex align-items-center m-2" onclick="hideShow()" >
                   <svg id="show" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye text-dark" viewBox="0 0 16 16">

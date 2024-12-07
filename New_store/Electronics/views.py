@@ -19,25 +19,22 @@ print(django.get_version(),"version")
 
 
 
-def home (request):
+def home (request): # Home page
     products = Product.objects.all()
     categories = Category.objects.all()
     counts = Cart.objects.all().count()-1
     return render(request , "index.html" , {"products":products ,"categories":categories ,"counts":counts})
 
 
-def login(request):
+def login(request): # Login page
     categories = Category.objects.all()
     counts = Cart.objects.all().count()-1
     if request.POST:
-        email = request.POST['email']
-        pwd = request.POST['password']
-
-        username = email.lower()
-        password = pwd.lower()
+        username = request.POST['email']
+        password = request.POST['password']
         user = auth.authenticate(username = username , password = password)
 
-        login_user = User.objects.filter(username = email)
+        login_user = User.objects.filter(username__iexact = username)
         if not(login_user):
             messages.error(request , "Invalid Username")
             return redirect('login')
@@ -52,11 +49,10 @@ def login(request):
             messages.error(request ,"Password is incorrect")
             return redirect('login')
 
-    return render(request , 'login.html',{"categories":categories,
-                                               "counts":counts})
+    return render(request , 'login.html',{"categories":categories,"counts":counts})
 
 
-def register(request):
+def register(request): # Register Page
     categories = Category.objects.all()
     counts = Cart.objects.all().count()-1
     if request.POST:
@@ -89,13 +85,12 @@ def register(request):
 
 
 
-def logout_user(request):
+def logout_user(request): # Logout Page
     logout(request)
     return redirect('login')
 
 
-
-def products_all(request , id):
+def products_all(request , id): # Logic after View option is Clicked on product
     categories = Category.objects.all()
 
     counts = Cart.objects.all().count()-1
@@ -110,16 +105,13 @@ def products_all(request , id):
                                              "counts":counts})
 
 
-
-def cate(request , id):
+def cate(request): # Logic after Category is Clicked
+    inp_get = request.GET.get('categories')
     categories = Category.objects.all()
-    s_category = Com.objects.filter(ct = id)
-    product = Product.objects.filter(category = id)
+    s_category = Com.objects.filter(ct__name = inp_get)
+    product = Product.objects.filter(category__name = inp_get)
     counts = Cart.objects.all().count()-1
-    return render(request , "category.html" , {"categories":categories ,
-                                             'product':product ,
-                                             "s_category":s_category,
-                                            "counts":counts})
+    return render(request , "category.html" , {"categories":categories ,'product':product ,"s_category":s_category,"counts":counts})
 
 
 

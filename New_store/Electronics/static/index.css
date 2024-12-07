@@ -11103,3 +11103,25 @@ legend.scheduler-border {
       transform: scale(1.05); /* Slight zoom effect */
       box-shadow: 0 8px 20px 20px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for emphasis */
     }
+
+    /* Remove green tick caused by autofill */
+input[type="password"],
+input[type="text"] {
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* Padding for icon space */
+input[type="password"] {
+  padding-right: 2.5rem; /* Adds space for the icon */
+}
+
+/* Style for the toggle icon */
+#toggleIcon {
+  color: #6c757d; /* Default icon color */
+  transition: color 0.3s; /* Smooth transition */
+}
+
+#toggleIcon:hover {
+  color: #343a40; /* Darker color on hover */
+} 

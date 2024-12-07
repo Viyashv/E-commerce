@@ -11,7 +11,7 @@ urlpatterns = [
     path('cart/', cart , name='cart'),
     path('add/<int:id>', add_cart , name='add'),
     path('delete/<int:id>', delete_product , name='delete'),
-    path('category/<int:id>', cate , name='category'),
+    path('category/', cate , name='category'),
     path('sub_category/<int:id>', sub_category , name='sub_category'),
     path('product/<int:id>', products_all , name='product'),
     path('about/', about , name='about'),
@@ -25,5 +25,4 @@ urlpatterns = [
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
-    # path('pay/', pay , name='pay'),
 ]
