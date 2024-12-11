@@ -40,18 +40,39 @@
 <section class="py-5">
   <div class="container px-4 px-lg-5 mt-5">
     <div class="nav-item dropdown d-flex justify-content-end">
-      <h3 class="nav-link dropdown-toggle fs-5" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="true">Featured</h3>
-      <ul class="dropdown-menu text-center" aria-labelledby="navbarDropdown" style="left: 0 !important; right: auto !important; transform: translate(0, 0) !important;">
-          <li><a class="dropdown-item" href="{% url 'sort_products' %}?sort=a-z">Sort: A-Z</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="{% url 'sort_products' %}?sort=z-a">Sort: Z-A</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="{% url 'sort_products' %}?sort=low-to-high">Price: Low to High</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="{% url 'sort_products' %}?sort=high-to-low">Price: High to Low</a></li>
+      <h3 class="nav-link dropdown-toggle fs-5 text-center col-2" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Featured
+      </h3>
+      <ul
+        class="dropdown-menu dropdown-menu-end shadow-lg rounded-3 p-2 text-center"
+        aria-labelledby="navbarDropdown"
+      >
+        <li>
+          <a class="dropdown-item py-2" href="{% url 'sort_products' %}?sort=a-z">Sort: A-Z</a>
+        </li>
+        <li>
+          <hr class="dropdown-divider my-1" />
+        </li>
+        <li>
+          <a class="dropdown-item py-2" href="{% url 'sort_products' %}?sort=z-a">Sort: Z-A</a>
+        </li>
+        <li>
+          <hr class="dropdown-divider my-1" />
+        </li>
+        <li>
+          <a class="dropdown-item py-2" href="{% url 'sort_products' %}?sort=low-to-high">Price: Low to High</a>
+        </li>
+        <li>
+          <hr class="dropdown-divider my-1" />
+        </li>
+        <li>
+          <a class="dropdown-item py-2" href="{% url 'sort_products' %}?sort=high-to-low">Price: High to Low</a>
+        </li>
       </ul>
-  </div>
-    <hr class="border-5 border-dark">
+    </div>
+    <hr class="border border-5 border-secondary">
     <div
       class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-lg-4 justify-content-center"
     >
@@ -82,6 +103,7 @@
     </div>
   </div>
 </section>
+<!-- Section End -->
 <!-- Footer-->
 
 <footer class="py-5 bg-dark">
