@@ -129,7 +129,7 @@ Store/
 ENV/
 env.bak/
 venv.bak/
-
+settings.py
 # Spyder project settings
 .spyderproject
 .spyproject
