@@ -41,7 +41,6 @@ class Product(models.Model):
 
 
 
-
 class Order(models.Model):
     product = models.ForeignKey(Product , on_delete = models.CASCADE)
     customer = models.ForeignKey(Customer , on_delete = models.CASCADE)
@@ -60,6 +59,7 @@ class Cart(models.Model):
     user = models.ForeignKey(User , on_delete = models.CASCADE)
     products =models.ForeignKey(Product, on_delete = models.CASCADE) 
     quantity = models.IntegerField(default = 1)
+    ord_status = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return str(self.user)+ " " +str(self.id)
