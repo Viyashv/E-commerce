@@ -20,6 +20,7 @@ urlpatterns = [
     path('cart/paymenthandler/', success , name='success'),
     path('search/', search_view, name='search'),
     path('products/', sort_products, name='sort_products'),
+    path('uncart/', CartPageView.Uncart, name='uncart'),
         # Password reset views
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),

@@ -272,3 +272,12 @@ def sort_products(request):
     elif sort_option == 'high-to-low':
         products = Product.objects.order_by('-price')
     return render(request , "index.html" , {"products":products ,"categories":categories ,"counts":counts})
+
+
+class CartPageView:
+    def Uncart(request):
+        item = request.GET.get('Id')
+        print(f"Item Id :- {item}")
+        Item_dlt = Cart.objects.get(id = item)
+        Item_dlt.delete() #delete the cart item which is order
+        return redirect('cart')

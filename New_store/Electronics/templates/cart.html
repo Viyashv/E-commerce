@@ -2,9 +2,10 @@
 <section class="container min-vh-100">
   
   <!-- Buttons for Ordered products and Add to cart -->
+
   <div class="mt-4">
     <ul class="nav nav-pills nav-justified mb-3"role="tablist">
-      <li class="nav-item bg-primary rounded-5">
+      <li class="nav-item bg-primary rounded-5 me-4">
         <a class="nav-link text-light">Ordered Product</a>
       </li>
       <li class="nav-item bg-primary rounded-5">
@@ -50,7 +51,7 @@
 
 
     <!-- Show all Products -->
-
+{% if i.ord_status == True %}
   <div class="container d-flex justify-content-center mt-3 ">
     <div class="card mb-3 border border-2 border-secondary" style="max-width: 540px">
       <div class="row g-0">
@@ -79,15 +80,17 @@
                 </div>
               </form>
             </div>
+            <button class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#exampleModal{{ i.id }}">Delete</button>
             {% else %}
               <p class="text-success">Successfully Ordered</p>
+              <a href="{% url 'uncart' %}?Id={{i.id}}" class="btn btn-danger">Uncart</a>
             {% endif %}
-            <button class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#exampleModal{{ i.id }}">Delete</button>
           </div>
         </div>
       </div>
     </div>
   </div>
+{% endif %}
   {% endfor %}
   {% endif %}
 
