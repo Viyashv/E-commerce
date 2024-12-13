@@ -1,123 +1,150 @@
-{% extends "base.html" %} {% block content %} {% include "nav.html" %}{% if not pro %}<h1 class="text-center">No Products in add to cart</h1>{% else %}{% for i in pro %}
- <!-- Modal Structure with Unique ID using i.id -->
+{% extends "base.html" %} {% block content %} {% include "nav.html" %}
+<section class="container min-vh-100">
+  {% if not pro %}<h1 class="text-center">No Products in add to cart</h1>{% else %}
+  {% for i in pro %}
+  <!-- Modal Structure with Unique ID using i.id -->
 
- <div class="modal fade" id="exampleModal{{ i.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ i.id }}" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel{{ i.id }}">Received Stock</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-              <!-- Your form or content goes here -->
-              <form id="updateForm" method="POST" action="{% url 'delete' i.id %}" class="needs-validation" novalidate>
-                  <!-- CSRF Token for Django -->
-                  {% csrf_token %}
-                  <div class="mb-3">
-                      <label for="quantity" class="form-label">Delete Quantity</label>
-                      <input type="number" class="form-control" id="quantity{{ i.id }}"min="1" max="{{i.quantity}}" name="quantity" required placeholder="{{i.quantity}}"/>
-                  </div>
-                  <input type="hidden" id="stockId" name="stock_id">
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Save changes</button>
-                  </div>
-              </form>
-          </div>
-      </div>
+  <div class="modal fade" id="exampleModal{{ i.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ i.id }}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel{{ i.id }}">Received Stock</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Your form or content goes here -->
+                <form id="updateForm" method="POST" action="{% url 'delete' i.id %}" class="needs-validation" novalidate>
+                    <!-- CSRF Token for Django -->
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Delete Quantity</label>
+                        <input type="number" class="form-control" id="quantity{{ i.id }}"min="1" max="{{i.quantity}}" name="quantity" required placeholder="{{i.quantity}}"/>
+                    </div>
+                    <input type="hidden" id="stockId" name="stock_id">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
   </div>
-</div>
 
-  <!--  End of Modal Structure with Unique ID using i.id -->
-  <!-- Show all Products -->
+    <!--  End of Modal Structure with Unique ID using i.id -->
 
-<div class="container d-flex justify-content-center mt-3">
-  <div class="card mb-3" style="max-width: 540px">
-    <div class="row g-0">
-      <div class="col-md-4 d-flex align-items-center">
-        <img
-          src="{{ i.products.image.url }}"
-          class="img-fluid rounded-start"
-          alt="..."
-        />
-      </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <h5 class="card-title">{{ i.products.name }}</h5>
-          <p class="card-text">{{ i.products.description|truncatewords:30 }}</p>
-          <div class="fs-5 mb-3">
-            <span>₹ {{ i.products.price }} </span>
-          </div>
-          <div class="fs-5 mb-3 d-flex justify-content-around">
-            <form action="{% url 'update' i.id %}" method="post" class="needs-validation" novalidate>
-              {% csrf_token %}
-              <div class="d-flex">
-                <div class="w-100">
-                  Quantity : {{i.quantity}}
+
+    <!-- Show all Products -->
+
+  <div class="container d-flex justify-content-center mt-3 ">
+    <div class="card mb-3 border border-2 border-secondary" style="max-width: 540px">
+      <div class="row g-0">
+        <div class="col-md-4 d-flex align-items-center">
+          <img src="{{ i.products.image.url }}" class="img-fluid rounded-start mt-4" alt="..." loading="lazy"/>
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{ i.products.name }}</h5>
+            <p class="card-text">{{ i.products.description|truncatewords:30 }} <a href="{% url 'product' i.products.id %}">View full description</a></p>
+            <div class="fs-5 mb-3">
+              <span>₹ {{ i.products.price }} </span>
+            </div>
+            {% if i.ord_status == False %}
+            <div class="fs-5 mb-3 d-flex justify-content-around">
+              <form action="{% url 'update' i.id %}" method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="d-flex">
+                  <div class="w-100">
+                    Quantity : {{i.quantity}}
+                  </div>
+                  <input class="form-control shadow-none mx-1" id="inputQuantity" name="quantity" type="number" min="1" value="1" required/>
+                  <button type="submit" class="btn btn-outline-dark flex-shrink-0">
+                    Add
+                  </button>
                 </div>
-                <input class="form-control shadow-none mx-1" id="inputQuantity" name="quantity" type="number" min="1" value="1" required/>
-                <button type="submit" class="btn btn-outline-dark flex-shrink-0">
-                  Add
-                </button>
-              </div>
-            </form>
+              </form>
+            </div>
+            {% else %}
+              <p class="text-success">Successfully Ordered</p>
+            {% endif %}
+            <button class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#exampleModal{{ i.id }}">Delete</button>
           </div>
-          <button class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#exampleModal{{ i.id }}">Delete</button>
         </div>
       </div>
     </div>
   </div>
-</div>
-{% endfor %}
-{% endif %}
+  {% endfor %}
+  {% endif %}
 
-  <!-- End of Products -->
+    <!-- End of Products -->
 
-<!--  Below is for Pay button and the Summary for of the items in the cart -->
-<div class="col-xl-4 container">
-  <div class="mt-5 mt-lg-0 border border-dark mb-5">
-    <div class="card border shadow-none">
-      <div class="card-header bg-transparent border-bottom py-3 px-4">
-        <h5 class="font-size-16 mb-0">Order Summary</h5>
-      </div>
-      <div class="card-body p-4 pt-2">
-        <div class="table-responsive">
-          <table class="table mb-0">
-            <tbody>
-              <tr>
-                <td>Sub Total :</td>
-                <td class="text-end">₹ {{ sub_total }}</td>
-              </tr>
-              <tr>
-                <td>Discount :</td>
-                <td class="text-end">- ₹ {{ discount_price }}</td>
-              </tr>
-              <tr>
-                <td>Shipping Charge :</td>
-                <td class="text-end">Free</td>
-              </tr>
-              <tr class="bg-light">
-                <th>Total :</th>
-                <td class="text-end">
-                  <span class="fw-bold"> ₹ {{ final_price }} </span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+  <!--  Below is for Pay button and the Summary for of the items in the cart -->
+
+  <div class="col-xl-4 container">
+    <div class="mt-5 mt-lg-0 border border-dark mb-5">
+      <div class="card border shadow-none">
+        <div class="card-header bg-transparent border-bottom py-3 px-4">
+          <h5 class="font-size-16 mb-0">Order Summary</h5>
         </div>
-        <!-- end table-responsive -->
+        <div class="card-body p-4 pt-2">
+          <div class="table-responsive">
+            <table class="table mb-0">
+              <tbody>
+                <tr>
+                  <td>Sub Total :</td>
+                  <td class="text-end">₹ {{ sub_total }}</td>
+                </tr>
+                <tr>
+                  <td>Discount :</td>
+                  <td class="text-end">- ₹ {{ discount_price }}</td>
+                </tr>
+                <tr>
+                  <td>Shipping Charge :</td>
+                  <td class="text-end">Free</td>
+                </tr>
+                <tr class="bg-light">
+                  <th>Total :</th>
+                  <td class="text-end">
+                    <span class="fw-bold"> ₹ {{ final_price }} </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- end table-responsive -->
+        </div>
+        {% if sub_total %}
+
+        <button id="pay-btn" class="m-3">pay</button>
+
+        {% endif %}
       </div>
-      {% if sub_total %}
-
-      <button id="pay-btn">pay</button>
-
-      {% endif %}
     </div>
   </div>
-</div>
-<!--  End for Pay button and the Summary for of the items in the cart -->
+
+  <!--  End for Pay button and the Summary for of the items in the cart -->
+
+
+</section>
+
+<!-- End for section -->
+
+<!-- Footer -->
+
+
+<footer class="bg-dark py-3">
+  <div class="container text-center">
+      <p class="text-white m-0">&copy; Your Website 2023</p>
+  </div>
+</footer>
+
+
+<!-- End Footer -->
+
 
 <!--       Scripts for Razorpay -->
+
+
 {% if context.razorpay_amount > 0 %}
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 {% endif %}
@@ -154,6 +181,8 @@
     }
   };
 </script>
+
+
 <!--     End  Scripts for Razorpay -->
 
 {% endblock %}

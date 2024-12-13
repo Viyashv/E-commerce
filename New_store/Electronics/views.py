@@ -133,9 +133,12 @@ def cart(request):
         categories = Category.objects.all()
         pro = Cart.objects.filter(user = request.user)
 
-        sub_total = sum([i.products.price * i.quantity for i in pro])
+        sub_total = sum([i.products.price * i.quantity for i in pro if i.ord_status == False])
         discount_price = float(sub_total) * 0.15
         final_price = float(sub_total) - discount_price
+
+        # Get IDs of items with ord_status == False
+        pending_ids = [str(i.id) for i in pro if i.ord_status == False]
 
         if sub_total > 0:
                 
@@ -149,7 +152,10 @@ def cart(request):
             
                 # order id of newly created order.
                 razorpay_order_id = razorpay_order['id']
-                callback_url = 'paymenthandler/'
+
+                # Pass IDs in callback_url as query parameters
+                pending_ids_param = ",".join(pending_ids)  # Create a comma-separated list of IDs
+                callback_url = f'paymenthandler/?pending_ids={pending_ids_param}'
             
                 # we need to pass these details to frontend.
                 context = {}
@@ -174,7 +180,6 @@ def cart(request):
                                               "final_price":final_price,
                                               "counts":counts})
     return redirect('login')
-
 
 
 def add_cart(request , id):
@@ -204,7 +209,7 @@ def delete_product(request , id):
         Ql = Cart.objects.get(id = id)
         if Ql.quantity == 1:
             Ql.delete()
-            messages.success(f"Removed Item from Cart")
+            messages.success(request ,f"Removed Item from Cart")
             return redirect('home')
         else:
             Ql.quantity -= int(Quan)
@@ -228,6 +233,19 @@ def slider(request):
 
 @csrf_exempt
 def success(request):
+    url = request.GET.getlist('pending_ids') #get ids of items after successfull payment
+
+    # Flatten the list of comma-separated IDs into a single list of integers
+    # 1. `for i in url`: Iterate over the strings in the `url` list.
+    # 2. `i.split(",")`: Split each string into a list of individual ID strings.
+    # 3. `for id_str in i.split(",")`: Iterate over the split ID strings.
+    # 4. `int(id_str)`: Convert each string ID to an integer.
+    IdList = [int(id_str) for i in url for id_str in i.split(",")]
+
+    for i in IdList:
+        ChangeStatus = Cart.objects.get(id = i)
+        ChangeStatus.ord_status = True
+        ChangeStatus.save()
     messages.success(request ,f'Successfully Purchased')
     return redirect('cart')
 
