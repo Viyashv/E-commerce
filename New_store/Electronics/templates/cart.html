@@ -1,5 +1,20 @@
 {% extends "base.html" %} {% block content %} {% include "nav.html" %}
 <section class="container min-vh-100">
+  
+  <!-- Buttons for Ordered products and Add to cart -->
+  <div class="mt-4">
+    <ul class="nav nav-pills nav-justified mb-3"role="tablist">
+      <li class="nav-item bg-primary rounded-5">
+        <a class="nav-link text-light">Ordered Product</a>
+      </li>
+      <li class="nav-item bg-primary rounded-5">
+        <a class="nav-link text-light">Add to Cart</a>
+      </li>
+    </ul>
+  </div>
+  
+  <!-- End of Buttons for Ordered products and Add to cart -->
+   
   {% if not pro %}<h1 class="text-center">No Products in add to cart</h1>{% else %}
   {% for i in pro %}
   <!-- Modal Structure with Unique ID using i.id -->
