@@ -130,7 +130,15 @@ razorpay_client = razorpay.Client(
 def cart(request):
     if request.user.is_authenticated:
         counts = Cart.objects.all().count()-1
+
+        ord_counts = Cart.objects.filter(ord_status = True).count()
+        cart_counts = Cart.objects.filter(ord_status = False).count()-1
+
         categories = Category.objects.all()
+
+        para = request.GET.get('status', 'False')  # Default is 'False'
+        status = para.lower() == 'true'  # Converts to True if 'status' is 'True' (case-insensitive), else False
+
         pro = Cart.objects.filter(user = request.user)
 
         sub_total = sum([i.products.price * i.quantity for i in pro if i.ord_status == False])
@@ -171,14 +179,22 @@ def cart(request):
                                                      "discount_price":discount_price,
                                                      "final_price":final_price ,
                                                      "context" : context,
-                                                     "counts":counts})
+                                                     "counts":counts ,
+                                                     'status': status,
+                                                     "ord_counts":ord_counts,
+                                                     "cart_counts":cart_counts,
+                                                     })
 
         return render(request , "cart.html",{"categories":categories ,
                                               "pro":pro ,
                                               "sub_total":sub_total,
                                               "discount_price":discount_price,
                                               "final_price":final_price,
-                                              "counts":counts})
+                                              "counts":counts ,
+                                              'status': status,
+                                              "ord_counts":ord_counts,
+                                              "cart_counts":cart_counts,
+                                              })
     return redirect('login')
 
 
@@ -210,7 +226,7 @@ def delete_product(request , id):
         if Ql.quantity == 1:
             Ql.delete()
             messages.success(request ,f"Removed Item from Cart")
-            return redirect('home')
+            return redirect('cart')
         else:
             Ql.quantity -= int(Quan)
             Ql.save()
@@ -253,10 +269,11 @@ def success(request):
 def search_view(request):
     query = request.GET.get('search')  # Get the search query from the GET request
     results = Product.objects.none()  # Default to no results
+    categories = Category.objects.all()
     counts = Cart.objects.all().count()-1
     if query:
         results = Product.objects.filter(Q(name__icontains=query)|Q(brand__brand__icontains=query))  # Filter products based on the search query
-    return render(request, 'search_results.html', {'results': results, 'query': query ,"counts":counts})
+    return render(request, 'search_results.html', {'results': results, 'query': query ,"counts":counts ,"categories":categories})
 
 # Fuction to sort the home page Products
 def sort_products(request):

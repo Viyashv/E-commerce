@@ -62,6 +62,6 @@ class Cart(models.Model):
     ord_status = models.BooleanField(default=False)
 
     def __str__(self) -> str:
-        return str(self.user)+ " " +str(self.id)
+        return f"User :- {self.user}  -  Id :- {self.id}  -  Status :- {self.ord_status}  -  Quantity :- {self.quantity} "
 
 

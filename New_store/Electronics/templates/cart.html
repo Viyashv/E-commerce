@@ -1,24 +1,26 @@
 {% extends "base.html" %} {% block content %} {% include "nav.html" %}
 <section class="container min-vh-100">
-  
-  <!-- Buttons for Ordered products and Add to cart -->
+<!-- Buttons for Ordered products and Add to cart -->
 
   <div class="mt-4">
     <ul class="nav nav-pills nav-justified mb-3"role="tablist">
       <li class="nav-item bg-primary rounded-5 me-4">
-        <a class="nav-link text-light">Ordered Product</a>
+        <a class="nav-link text-light" href="{% url 'cart' %}?status=True">Ordered Product <span class="badge bg-dark text-white ms-1 rounded-pill">{{ord_counts}}</span></a>
       </li>
       <li class="nav-item bg-primary rounded-5">
-        <a class="nav-link text-light">Add to Cart</a>
+        <a class="nav-link text-light" href="{% url 'cart' %}?status=False">Add to Cart <span class="badge bg-dark text-white ms-1 rounded-pill">{{cart_counts}}</span></a>
       </li>
     </ul>
   </div>
   
-  <!-- End of Buttons for Ordered products and Add to cart -->
+<!-- End of Buttons for Ordered products and Add to cart -->
    
   {% if not pro %}<h1 class="text-center">No Products in add to cart</h1>{% else %}
   {% for i in pro %}
-  <!-- Modal Structure with Unique ID using i.id -->
+        {% if i.ord_status == False %}
+        <h1 class="text-center">No Products in add to cart</h1>
+        {% else %}
+<!-- Modal Structure with Unique ID using i.id -->
 
   <div class="modal fade" id="exampleModal{{ i.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ i.id }}" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -47,11 +49,12 @@
     </div>
   </div>
 
-    <!--  End of Modal Structure with Unique ID using i.id -->
+<!--  End of Modal Structure with Unique ID using i.id -->
 
 
-    <!-- Show all Products -->
-{% if i.ord_status == True %}
+<!-- Show all Products -->
+{% if i.ord_status == status %}
+
   <div class="container d-flex justify-content-center mt-3 ">
     <div class="card mb-3 border border-2 border-secondary" style="max-width: 540px">
       <div class="row g-0">
@@ -60,10 +63,10 @@
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h5 class="card-title">{{ i.products.name }}</h5>
-            <p class="card-text">{{ i.products.description|truncatewords:30 }} <a href="{% url 'product' i.products.id %}">View full description</a></p>
+            <h5 class="card-title">Name :- {{ i.products.name }}</h5>
+            <p class="card-text"><strong>Description :-</strong> {{ i.products.description|truncatewords:30 }} <a href="{% url 'product' i.products.id %}">View full description</a></p>
             <div class="fs-5 mb-3">
-              <span>₹ {{ i.products.price }} </span>
+              <span><strong>Prize :-</strong> ₹ {{ i.products.price }} </span>
             </div>
             {% if i.ord_status == False %}
             <div class="fs-5 mb-3 d-flex justify-content-around">
@@ -71,7 +74,7 @@
                 {% csrf_token %}
                 <div class="d-flex">
                   <div class="w-100">
-                    Quantity : {{i.quantity}}
+                   <strong>Quantity :</strong> {{i.quantity}}
                   </div>
                   <input class="form-control shadow-none mx-1" id="inputQuantity" name="quantity" type="number" min="1" value="1" required/>
                   <button type="submit" class="btn btn-outline-dark flex-shrink-0">
@@ -82,6 +85,7 @@
             </div>
             <button class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#exampleModal{{ i.id }}">Delete</button>
             {% else %}
+            <span><strong>Quantity :</strong> {{i.quantity}}</span>
               <p class="text-success">Successfully Ordered</p>
               <a href="{% url 'uncart' %}?Id={{i.id}}" class="btn btn-danger">Uncart</a>
             {% endif %}
@@ -94,10 +98,10 @@
   {% endfor %}
   {% endif %}
 
-    <!-- End of Products -->
+<!-- End of Products -->
 
-  <!--  Below is for Pay button and the Summary for of the items in the cart -->
-
+<!--  Below is for Pay button and the Summary for of the items in the cart -->
+{% if not status %}
   <div class="col-xl-4 container">
     <div class="mt-5 mt-lg-0 border border-dark mb-5">
       <div class="card border shadow-none">
@@ -129,7 +133,7 @@
               </tbody>
             </table>
           </div>
-          <!-- end table-responsive -->
+<!-- end table-responsive -->
         </div>
         {% if sub_total %}
 
@@ -139,9 +143,8 @@
       </div>
     </div>
   </div>
-
+{% endif %}
   <!--  End for Pay button and the Summary for of the items in the cart -->
-
 
 </section>
 
@@ -149,13 +152,11 @@
 
 <!-- Footer -->
 
-
 <footer class="bg-dark py-3">
   <div class="container text-center">
       <p class="text-white m-0">&copy; Your Website 2023</p>
   </div>
 </footer>
-
 
 <!-- End Footer -->
 
