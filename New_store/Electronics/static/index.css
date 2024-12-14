@@ -281,3 +281,6 @@ legend.scheduler-border {
       transform: scale(1.05); /* Slight zoom effect */
       box-shadow: 0 8px 20px 20px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for emphasis */
     }
+.card{
+  width:17rem;
+}
