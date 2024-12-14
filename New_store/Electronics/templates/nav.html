@@ -18,6 +18,9 @@
                             {% endfor %}
                             </ul>
                         </li>
+                        {% if user.is_superuser %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'admin:index' %}">Admin Panel</a></li>
+                        {% endif %}
                     </ul>
                     <form class="d-flex me-2 needs-validation" novalidate role="search" method="get" action="{% url 'search' %}">
                         <input class="form-control me-1 border border-2 border-secondary shadhow-none" type="search" placeholder="Search" aria-label="Search" name="search" required>

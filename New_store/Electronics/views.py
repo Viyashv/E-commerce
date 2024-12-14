@@ -213,7 +213,7 @@ def update(request , id):
         if request.method == 'POST':
             quantity = request.POST.get('quantity')
             updt_item = Cart.objects.get(id = id)
-            updt_item.quantity = int(quantity)
+            updt_item.quantity += int(quantity)
             updt_item.save()
             return redirect('cart')
     return redirect('login')
@@ -223,7 +223,7 @@ def delete_product(request , id):
     if request.POST:
         Quan = request.POST.get('quantity')
         Ql = Cart.objects.get(id = id)
-        if Ql.quantity == 1:
+        if Ql.quantity == 1 or int(Quan) == Ql.quantity:
             Ql.delete()
             messages.success(request ,f"Removed Item from Cart")
             return redirect('cart')

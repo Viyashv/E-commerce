@@ -12,14 +12,11 @@
       </li>
     </ul>
   </div>
-  
+
 <!-- End of Buttons for Ordered products and Add to cart -->
    
   {% if not pro %}<h1 class="text-center">No Products in add to cart</h1>{% else %}
   {% for i in pro %}
-        {% if i.ord_status == False %}
-        <h1 class="text-center">No Products in add to cart</h1>
-        {% else %}
 <!-- Modal Structure with Unique ID using i.id -->
 
   <div class="modal fade" id="exampleModal{{ i.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ i.id }}" aria-hidden="true">
@@ -102,6 +99,8 @@
 
 <!--  Below is for Pay button and the Summary for of the items in the cart -->
 {% if not status %}
+{% if not ord_counts %} <h2 class="text-center mb-4 text-danger">No products in your Order</h2> {% endif %}
+{% if not cart_counts %} <h2 class="text-center mb-4 text-danger">No products in your add to cart</h2> {% endif %}
   <div class="col-xl-4 container">
     <div class="mt-5 mt-lg-0 border border-dark mb-5">
       <div class="card border shadow-none">
