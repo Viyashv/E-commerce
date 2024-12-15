@@ -1,0 +1,98 @@
+<div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="width: 10rem !important;">
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">Category</div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="border border-light my-0">
+
+        <!-- Categories -->
+        {% for category in categories %}
+        <li class="text-warning">
+            <strong class="text-decoration-underline">{{ category.name }}</strong>
+            <ul class="list-unstyled">
+                {% for com in category.com_set.all %}
+                <li class="nav-item text-white bi bi-check-circle d-flex align-items-center">
+                    <a class="nav-link w-100" href="{% url 'sub_category' com.id %}">
+                        <span>{{ com.brand }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+    <!-- <li class="nav-item dropdown">
+        {% for i in categories %}
+        <a class="nav-link dropdown-toggle show text-decoration-underline text-warning" id="navbarDropdown" href="#" role="button"data-bs-toggle="dropdown" aria-expanded="true">{{ i.name }}</a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% for j in i.com_set.all %}
+            <li><a class="dropdown-item" href="{% url 'sub_category' j.id %}">{{ j.brand }}</a></li>
+            {% endfor %}
+            {% comment %} <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+            <li><a class="dropdown-item" href="#!">New Arrivals</a></li> {% endcomment %}
+        </ul>
+        {% endfor %}
+    </li> -->
+        
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Main Content -->
+    <div class="container-fluid mt-4">
+        <div class="row gx-3 gx-lg-3 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
+            {% for j in product %}
+            <div class="col mb-5">
+                <div class="card h-100 border-dark hover-zoom d-flex align-items-center shadow">
+                    <!-- Product image-->
+                    <img class="card-img-top mt-2" src="{{ j.image.url }}" alt="{{ j.name }}" loading="lazy">
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">{{ j.name }}</h5>
+                            <!-- Product price-->
+                            <span class="text-muted">MRP ₹ {{ j.price }}</span>
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-2 pt-0 border-top-0 bg-transparent text-center">
+                        <a class="btn btn-outline-dark mt-auto" href="{% url 'product' j.id %}">View options</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+<!-- New Changes-->
+<div class="col-md-10 d-flex justify-content-center">
+    <div class="row gx-3 gx-lg-3 row-cols-1 row-cols-md-2 row-cols-lg-1">
+        {% for j in product %}
+        <div class="col mb-5">
+            <div class="card border-dark hover-zoom d-flex align-items-center shadow">
+                <!-- Product image -->
+                <img class="card-img-top mt-2" src="{{ j.image.url }}" alt="{{ j.name }}" loading="lazy">
+                <!-- Product details -->
+                <div class="card-body p-4">
+                    <div class="text-center">
+                        <h5 class="fw-bolder">{{ j.name }}</h5>
+                        <span class="text-muted">MRP ₹ {{ j.price }}</span>
+                    </div>
+                </div>
+                <!-- Product actions -->
+                <div class="card-footer p-2 pt-0 border-top-0 bg-transparent text-center">
+                    <a class="btn btn-outline-dark mt-auto" href="{% url 'product' j.id %}">View options</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

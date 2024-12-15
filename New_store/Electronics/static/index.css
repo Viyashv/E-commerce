@@ -281,6 +281,29 @@ legend.scheduler-border {
       transform: scale(1.05); /* Slight zoom effect */
       box-shadow: 0 8px 20px 20px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for emphasis */
     }
-.card{
-  width:17rem;
+    .cards{
+      width: 17rem;
+    }
+    /* Sidebar behavior on large screens */
+    @media (min-width: 768px) {
+      #sidebar {
+          position: sticky;
+          top: 0;
+          height: 100vh;
+          z-index: 1;
+          width: auto;
+      }
+      .offcanvas {
+          visibility: visible !important;
+          transform: none !important;
+      }
+  }
+  .w-max-content {
+    width: max-content !important;
+}
+
+@media (max-width: 768px) {
+    .w-max-content {
+        width: auto; /* Or another width you prefer on smaller screens */
+    }
 }

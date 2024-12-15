@@ -1,81 +1,76 @@
 {% extends "base.html" %}
 {% block content %}
-<link href="/static/sb-admin-2.min.css" rel="stylesheet">
 
 {% include "nav.html" %}
 
-<div id="wrapper">
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="width: 10rem !important;">
-        <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
-            <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-laugh-wink"></i>
-            </div>
-            <div class="sidebar-brand-text mx-3">Category</div>
-        </a>
+<div class="container-fluid min-vh-100 p-0 m-0 d-flex">
+    <div class="bg-primary h-auto">
+        <!-- Sidebar Trigger Button (Visible only on small screens) -->
+        <div class="col-12 d-md-none bg-primary text-white p-2">
+            <button class="btn btn-outline-light" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+                <i class="bi bi-list"></i> Menu
+            </button>
+        </div>
 
-        <!-- Divider -->
-        <hr class="border border-light my-0">
-
-        <!-- Categories -->
-        {% for category in categories %}
-        <li class="text-warning">
-            <strong class="text-decoration-underline">{{ category.name }}</strong>
-            <ul class="list-unstyled">
-                {% for com in category.com_set.all %}
-                <li class="nav-item text-white bi bi-check-circle d-flex align-items-center">
-                    <a class="nav-link w-100" href="{% url 'sub_category' com.id %}">
-                        <span>{{ com.brand }}</span>
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-        </li>
-    {% endfor %}
-    <!-- <li class="nav-item dropdown">
-        {% for i in categories %}
-        <a class="nav-link dropdown-toggle show text-decoration-underline text-warning" id="navbarDropdown" href="#" role="button"data-bs-toggle="dropdown" aria-expanded="true">{{ i.name }}</a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            {% for j in i.com_set.all %}
-            <li><a class="dropdown-item" href="{% url 'sub_category' j.id %}">{{ j.brand }}</a></li>
-            {% endfor %}
-            {% comment %} <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-            <li><a class="dropdown-item" href="#!">New Arrivals</a></li> {% endcomment %}
-        </ul>
-        {% endfor %}
-    </li> -->
-        
-    </ul>
-    <!-- End of Sidebar -->
-
-    <!-- Main Content -->
-    <div class="container-fluid mt-4">
-        <div class="row gx-3 gx-lg-3 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
-            {% for j in product %}
-            <div class="col mb-5">
-                <div class="card h-100 border-dark hover-zoom d-flex align-items-center shadow">
-                    <!-- Product image-->
-                    <img class="card-img-top mt-2" src="{{ j.image.url }}" alt="{{ j.name }}" loading="lazy">
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder">{{ j.name }}</h5>
-                            <!-- Product price-->
-                            <span class="text-muted">MRP ₹ {{ j.price }}</span>
-                        </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-2 pt-0 border-top-0 bg-transparent text-center">
-                        <a class="btn btn-outline-dark mt-auto" href="{% url 'product' j.id %}">View options</a>
-                    </div>
+        <!-- Sidebar -->
+        <div class="col-md-2 offcanvas offcanvas-start bg-primary text-white" id="sidebar" tabindex="-1" aria-labelledby="sidebarLabel">
+            <div class="d-flex align-items-center justify-content-center m-3">
+                <h5 class="offcanvas-title" id="sidebarLabel">Category</h5>
+                <div class="offcanvas-header d-md-none">
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
             </div>
-            {% endfor %}
+            <hr class="opacity-100 m-0">
+            <div class="offcanvas-body p-0">
+                <ul class="list-group list-group-flush">
+                    {% for category in categories %}
+                    <li class="list-group-item bg-primary text-warning w-max-content border-bottom-0">
+                        <strong class="text-decoration-underline">{{ category.name }}</strong>
+                        <ul class="list-unstyled">
+                            {% for com in category.com_set.all %}
+                            <li class="w-max-content">
+                                <a class="text-white text-decoration-none d-block py-1" href="{% url 'sub_category' com.id %}">
+                                    <i class="bi bi-check-circle"></i> {{ com.brand }}
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <hr class="opacity-100">
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
+        <!-- Main Content -->
+        <div class="container-fluid mt-4">
+            <div class="row gx-3 gx-lg-3 row-cols-1 row-cols-md-2 row-cols-xl-4 justify-content-center">
+                {% for j in product %}
+                <div class="col mb-5">
+                    <div class="card h-100 border-dark hover-zoom d-flex align-items-center shadow">
+                        <!-- Product image-->
+                        <img class="card-img-top mt-2" src="{{ j.image.url }}" alt="{{ j.name }}" loading="lazy">
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">{{ j.name }}</h5>
+                                <!-- Product price-->
+                                <span class="text-muted">MRP ₹ {{ j.price }}</span>
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-2 pt-0 border-top-0 bg-transparent text-center">
+                            <a class="btn btn-outline-dark mt-auto" href="{% url 'product' j.id %}">View options</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    
 </div>
+
 
 <!-- Footer -->
 <footer class="py-4 bg-dark text-white">
@@ -83,7 +78,4 @@
         <p class="m-0 text-center">Copyright &copy; Your Website 2023</p>
     </div>
 </footer>
-
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 {% endblock %}
