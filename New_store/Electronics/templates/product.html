@@ -2,7 +2,7 @@
 
 {% block content %}
 {% include "nav.html" %}
- <section class="py-5 bg-light">
+ <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6" >
@@ -24,16 +24,16 @@
             </div>
  </section>
  <!-- Related Products Section-->
-         <section class="py-5 bg-light">
+         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <h2 class="fw-bolder mb-4">Related products</h2>
-                <hr class="border border-dark">     
+                <hr class="border">     
 
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 {% for j in product %}
                 
                     <div class="col mb-5">
-                        <div class="card h-100 border-dark hover-zoom d-flex align-items-center shadow">
+                        <div class="card h-100 border hover-zoom d-flex align-items-center shadow">
                             <!-- Product image-->
                             <img class="card-img-top mt-2" src="{{ j.image.url }}" alt="..." loading="lazy"/>
                             <!-- Product details-->

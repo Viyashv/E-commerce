@@ -56,184 +56,11 @@ $form-floating-label-disabled-color:    $gray-600;
 
 
 
-
-
-/* styling for category */
-
-
-.single {
-  padding: 30px 15px;
-  margin-top: 40px;
-  background: #fcfcfc;
-  border: 1px solid #f0f0f0; }
-  .single h3.side-title {
-  margin: 0;
-  margin-bottom: 10px;
-  padding: 0;
-  font-size: 20px;
-  color: #333;
-  text-transform: uppercase; }
-  .single h3.side-title:after {
-  content: '';
-  width: 60px;
-  height: 1px;
-  background: #ff173c;
-  display: block;
-  margin-top: 6px; }
-  
-  .single ul {
-  margin-bottom: 0; }
-  .single li a {
-  color: #666;
-  font-size: 14px;
-  text-transform: uppercase;
-  border-bottom: 1px solid #f0f0f0;
-  line-height: 40px;
-  display: block;
-  text-decoration: none; }
-  .single li a:hover {
-  color: #ff173c; }
-  .single li:last-child a {
-  border-bottom: 0; }
-
-  /* fieldset of create.html */
-
-  fieldset.scheduler-border {
-    border: 1px groove #ddd !important;
-    padding: 0 1.4em 1.4em 1.4em !important;
-    margin: 0 0 1.5em 0 !important;
-    -webkit-box-shadow:  0px 0px 0px 0px #000;
-            box-shadow:  0px 0px 0px 0px #000;
-}
-
-legend.scheduler-border {
-    font-size: 1.2em !important;
-    font-weight: bold !important;
-    text-align: left !important;
-}
-
-/* slider */
-.slick-slide {
-  margin: 0px 20px;
-  }
-  
-  .slick-slide img {
-  width: 100%;
-  }
-  
-  .slick-slider
-  {
-  position: relative;
-  display: block;
-  box-sizing: border-box;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-touch-callout: none;
-  -khtml-user-select: none;
-  -ms-touch-action: pan-y;
-  touch-action: pan-y;
-  -webkit-tap-highlight-color: transparent;
-  }
-  
-  .slick-list
-  {
-  position: relative;
-  display: block;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-  }
-  .slick-list:focus
-  {
-  outline: none;
-  }
-  .slick-list.dragging
-  {
-  cursor: pointer;
-  cursor: hand;
-  }
-  
-  .slick-slider .slick-track,
-  .slick-slider .slick-list
-  {
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-  }
-  
-  .slick-track
-  {
-  position: relative;
-  top: 0;
-  left: 0;
-  display: block;
-  }
-  .slick-track:before,
-  .slick-track:after
-  {
-  display: table;
-  content: '';
-  }
-  .slick-track:after
-  {
-  clear: both;
-  }
-  .slick-loading .slick-track
-  {
-  visibility: hidden;
-  }
-  
-  .slick-slide
-  {
-  display: none;
-  float: left;
-  height: 100%;
-  min-height: 1px;
-  }
-  [dir='rtl'] .slick-slide
-  {
-  float: right;
-  }
-  .slick-slide img
-  {
-  display: block;
-  }
-  .slick-slide.slick-loading img
-  {
-  display: none;
-  }
-  .slick-slide.dragging img
-  {
-  pointer-events: none;
-  }
-  .slick-initialized .slick-slide
-  {
-  display: block;
-  }
-  .slick-loading .slick-slide
-  {
-  visibility: hidden;
-  }
-  .slick-vertical .slick-slide
-  {
-  display: block;
-  height: auto;
-  border: 1px solid transparent;
-  }
-  .slick-arrow.slick-hidden {
-  display: none;
-  }
-  
-
-  /* End slider */
-
 /* Cards Effects and Silder Css*/
 
-
+.w-min-available {
+  min-width:-webkit-fill-available !important;
+}
       /* Ensure image size consistency */
       .card-img-top {
         height: 250px !important; /* Fixed height for all images */
@@ -307,3 +134,111 @@ legend.scheduler-border {
         width: auto; /* Or another width you prefer on smaller screens */
     }
 }
+    /* Optional: Custom styling for dark mode */
+    .dark-mode {
+      background-color: #121212 !important;
+      color: white !important;
+    }
+    .dark-mode .btn-primary {
+      background-color: #0d6efd;
+      border-color: #0d6efd;
+    }
+    .dark-mode .card {
+      background-color: #1e1e1e;
+      border-color: #444;
+    }
+    .dark-mode .navbar-light {
+      background-color: #1e1e1e !important;
+    }
+    .dark-mode .navbar-light .navbar-nav .nav-link {
+      color: white;
+    }
+    .dark-mode .navbar-light .navbar-brand {
+      color: white;
+    }
+    :root {
+      --bs-body-bg: #ffffff;
+      --bs-body-color: #000000;
+      --bs-card-bg: #f8f9fa;
+      --bs-card-border-color: #dee2e6;
+      --bs-link-color: #0d6efd;
+      --bs-border-color: #000000;
+      /* Button */
+      --btn-outline-border: #343a40; /* Default dark border for light theme */
+      --btn-outline-text: #343a40;   /* Default dark text for light theme */
+      --btn-outline-hover-bg: #343a40; /* Default dark background for hover in light theme */
+      --btn-outline-hover-text: #ffffff; /* White text on hover in light theme */
+      /*Carousal*/
+      --carousel-bg: #000000; /* Light background */
+      --carousel-dot: rgb(0, 0, 0); /* Gray dots */
+      --carousel-dot-active: #ffffff; /* Darker dot for active */
+      --carousel-nav: #343a40; /* Dark navigation icons */
+      --carousel-indicators-bg: rgba(156, 165, 175, 0.8); /* Light transparent background */
+    }
+  
+    [data-bs-theme="dark"] {
+      --bs-body-bg: #121212;
+      --bs-body-color: #ffffff;
+      --bs-card-bg: #1e1e1e;
+      --bs-card-border-color: #2a2a2a;
+      --bs-link-color: #bb86fc;
+      --bs-border-color: #ffffff; /* White border for dark theme */
+      --btn-outline-border: #ffffff; /* White border for dark theme */
+      --btn-outline-text: #ffffff;   /* White text for dark theme */
+      --btn-outline-hover-bg: #ffffff; /* White background for hover in dark theme */
+      --btn-outline-hover-text: #000000; /* Black text on hover in dark theme */
+      /* Carousal */
+      --carousel-bg: #a1a6aa; /* Dark background */
+      --carousel-dot: Black; /* Light gray dots */
+      --carousel-dot-active: #000000; /* White for active dot */
+      --carousel-nav: #ffffff; /* White navigation icons */
+      --carousel-indicators-bg: rgba(33, 37, 41, 0.8); /* Dark transparent background */
+    }
+    /* Optional: Custom styling for Button */
+    .btn-outline-dark {
+      color: var(--btn-outline-text);
+      border: 1px solid var(--btn-outline-border);
+      background-color: transparent;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-outline-dark:hover {
+      color: var(--btn-outline-hover-text);
+      background-color: var(--btn-outline-hover-bg);
+    }
+    /* carusol theme change css*/
+    .carousel {
+      background-color: var(--carousel-bg);
+      transition: background-color 0.3s ease; /* Smooth transition */
+    }
+    
+    .carousel-indicators .dot {
+      width: 10px;
+      margin: 0 5px;
+      background-color: var(--carousel-dot);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .carousel-indicators .dot.active {
+      background-color: var(--carousel-dot-active);
+    }
+    
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: var(--carousel-nav);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      transition: background-color 0.3s ease;
+    }
+
+    .carousel-indicators {
+      background-color: var(--carousel-indicators-bg); /* Themed background color */
+      border-radius: 0.5rem; /* Optional: Rounded corners */
+      display: flex; /* Flex layout for better alignment */
+      justify-content: center;
+      align-items: center;
+      transition: background-color 0.3s ease; /* Smooth theme transition */
+    }
