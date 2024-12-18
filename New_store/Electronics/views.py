@@ -290,6 +290,8 @@ def sort_products(request):
         products = Product.objects.order_by('-price')
     return render(request , "index.html" , {"products":products ,"categories":categories ,"counts":counts})
 
+def MyProfile(request):
+    return render(request , "my_profile.html")
 
 class CartPageView:
     def Uncart(request):

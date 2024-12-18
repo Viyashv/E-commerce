@@ -74,7 +74,10 @@
                 <ul class="dropdown-menu text-center w-min-available">
                     {% if user.is_authenticated %}
                         <li>
-                            <i class="bi bi-file-person me-2"></i>My Profile
+                            <a href="{% url 'my_profile' %}" class="text-decoration-none w-max-content">
+                                <i class="bi bi-file-person me-2"></i>My Profile
+                            </a>
+                            
                         </li>
                         <hr>
                         <li class="mb-3 ">

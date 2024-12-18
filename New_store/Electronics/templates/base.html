@@ -60,7 +60,6 @@
   });
   //Theme change
   function setTheme(theme) {
-    console.log(`Setting theme to: ${theme}`); // Debug: log the theme being set
    // Add or remove dark-mode class based on the theme
    if (theme === 'dark') {
     document.body.classList.add('dark-mode');  // Add dark mode class
@@ -75,7 +74,6 @@
   // Optionally, save the selected theme to localStorage
   document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('theme');
-    console.log(`Loaded saved theme: ${savedTheme}`); // Debug: log the saved theme
     if (savedTheme) {
       setTheme(savedTheme);
     }

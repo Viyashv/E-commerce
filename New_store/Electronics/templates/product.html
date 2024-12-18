@@ -27,13 +27,13 @@
          <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <h2 class="fw-bolder mb-4">Related products</h2>
-                <hr class="border">     
+                <hr class="border border-dark mb-lg-5">     
 
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 {% for j in product %}
                 
                     <div class="col mb-5">
-                        <div class="card h-100 border hover-zoom d-flex align-items-center shadow">
+                        <div class="card h-100 border hover-zoom d-flex align-items-center shadow cards border-dark">
                             <!-- Product image-->
                             <img class="card-img-top mt-2" src="{{ j.image.url }}" alt="..." loading="lazy"/>
                             <!-- Product details-->
@@ -63,7 +63,7 @@
                    
         </section> 
         <!-- Footer-->
-        <footer class="py-5 " style="background-color: black !important;">
+        <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
         </footer>
 

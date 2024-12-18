@@ -2,111 +2,112 @@
 
 {% block content %}
 
-{% include "nav.html" %}
-
+    {% include "nav.html" %}
 
     <!-- Section: Design Block -->
     <section class="background-radial-gradient overflow-hidden min-vh-100" style="padding-bottom: 12rem;">
-      <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
-          <div class="row gx-lg-5 align-items-center mb-5" style="display: grid; place-items: center; margin-top: -13rem;">
-              
-              <!-- Left Column for Heading -->
-              <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
-                  <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
-                      <br />
-                      <span style="color: hsl(218, 81%, 75%)"></span>
-                  </h1>
-                  <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
-                      <!-- Placeholder for content -->
-                  </p>
-              </div>
+        <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+            <div class="row gx-lg-5 align-items-center mb-5" style="display: grid; place-items: center; margin-top: -13rem;">
+                
+                <!-- Left Column for Heading -->
+                <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+                    <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+                        <br />
+                        <span style="color: hsl(218, 81%, 75%)"></span>
+                    </h1>
+                    <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
+                        <!-- Placeholder for content -->
+                    </p>
+                </div>
 
-              <!-- Right Column for Form -->
-              <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
-                  <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
-                  <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+                <!-- Right Column for Form -->
+                <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+                    <!-- Decorative Elements -->
+                    <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+                    <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
 
-                  <!-- Card for Registration Form -->
-                  <div class="card bg-glass" style="background-color: hsl(0deg 0% 100% / 11%) !important; border: 1px solid #14aeed5e; box-shadow: 0px -1px 32px 0 #100d15;">
-                      <div class="card-body px-4 py-5 px-md-5">
-                          <!-- Registration Form -->
-                          <form method='POST' class="needs-validation p-0" novalidate>
-                              {% csrf_token %}
-                              <div class="d-flex align-items-center flex-column">
-                                  <div class="pb-1">
-                                      <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
-                                      <span class="h1 fw-bold mb-0">Register</span>
-                                  </div>
-                                  <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px; color: white;">Register into your account</h5>
-                              </div>
+                    <!-- Card for Registration Form -->
+                    <div class="card bg-glass" style="background-color: hsl(0deg 0% 100% / 11%) !important; border: 1px solid #14aeed5e; box-shadow: 0px -1px 32px 0 #100d15;">
+                        <div class="card-body px-4 py-5 px-md-5">
+                            <!-- Registration Form -->
+                            <form method="POST" class="needs-validation p-0" novalidate>
+                                {% csrf_token %}
+                                <div class="d-flex align-items-center flex-column">
+                                    <div class="pb-1">
+                                        <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                                        <span class="h1 fw-bold mb-0">Register</span>
+                                    </div>
+                                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px; color: white;">Register into your account</h5>
+                                </div>
 
-                              <!-- Form Fields -->
-                              <div class="row">
-                                  <div class="col-md-6 mb-4">
-                                      <div class="form-outline form-floating">
-                                          <input type="text" id="name" required oninput="this.value=(this.value.match('[a-zA-Z]+'))" class="form-control bg-transparent" placeholder="First Name" name="firstname" data-sb-validations="required"/>
-                                          <label class="form-label bg-transparent" for="name">First name</label>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-6 mb-4">
-                                      <div class="form-floating">
-                                          <input type="text" id="form3Example2" class="form-control bg-transparent"  placeholder="Last Name" name="lastname" required/>
-                                          <label class="form-label bg-transparent" for="form3Example2">Last name</label>
-                                      </div>
-                                  </div>
-                              </div>
+                                <!-- Form Fields -->
+                                <div class="row">
+                                    <!-- First Name -->
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline form-floating text-info border-bottom border-2 border-secondary rounded-2">
+                                            <input type="text" id="name" required oninput="this.value=(this.value.match('[a-zA-Z]+'))" class="form-control bg-transparent border-0 shadow-none text-info" placeholder="First Name" name="firstname" data-sb-validations="required"/>
+                                            <label class="form-label bg-transparent" for="name">First name</label>
+                                        </div>
+                                    </div>
+                                    <!-- Last Name -->
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-floating text-info border-bottom border-2 border-secondary rounded-2">
+                                            <input type="text" id="form3Example2" class="form-control bg-transparent border-0 shadow-none text-info"  placeholder="Last Name" name="lastname" required/>
+                                            <label class="form-label bg-transparent" for="form3Example2">Last name</label>
+                                        </div>
+                                    </div>
+                                </div>
 
-                              <!-- Email input -->
-                              <div class="form-floating mb-4">
-                                  <input type="email" id="form3Example3" class="form-control bg-transparent" placeholder="Email" name="email" required/>
-                                  <label class="form-label bg-transparent" for="form3Example3">Email address</label>
-                              </div>
+                                <!-- Email -->
+                                <div class="form-floating mb-4 text-info border-bottom border-2 border-secondary rounded-2">
+                                    <input type="email" id="form3Example3" class="form-control bg-transparent border-0 shadow-none text-info" placeholder="Email" name="email" required/>
+                                    <label class="form-label bg-transparent" for="form3Example3">Email address</label>
+                                </div>
 
-                              <!-- Password input -->
-                              <div class="form-floating mb-4 d-flex border rounded-2">
-                                  <input type="password" id="pass" class="form-control border-0 bg-transparent shadow-none" placeholder="Password" name="password" required/>
-                                  <label class="form-label bg-transparent" for="pass">Password</label>
-                                  <span class="d-flex align-items-center m-3" onclick="togglePassword()">
-                                    <i id="toggleIcon" class="bi bi-eye text-ssecondary fs-5"></i>
-                                  </span>
-                              </div>
+                                <!-- Password -->
+                                <div class="form-floating mb-4 d-flex text-info border-bottom border-2 border-secondary rounded-2">
+                                    <input type="password" id="pass" class="form-control border-0 bg-transparent shadow-none text-info" placeholder="Password" name="password" required/>
+                                    <label class="form-label bg-transparent" for="pass">Password</label>
+                                    <span class="d-flex align-items-center m-3" onclick="togglePassword()">
+                                        <i id="toggleIcon" class="bi bi-eye text-dark fs-5"></i>
+                                    </span>
+                                </div>
 
-                              <!-- Submit Button -->
-                               <div class="d-flex flex-column align-items-center">
-                                 <div class="w-100">
-                                     <button type="submit" class="btn btn-primary btn-lg btn-block w-100">Submit</button>
-                                 </div>
-   
-                                 <p class="mb-2 pb-lg-2 text-light">Already a Member? <a href="{% url 'login' %}" class="text-light">Login here</a></p>
-                               </div>
+                                <!-- Submit Button -->
+                                <div class="d-flex flex-column align-items-center">
+                                    <div class="w-100">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block w-100">Submit</button>
+                                    </div>
 
-                          </form>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </section>
-  <!-- Section: Design Block -->
+                                    <p class="mb-2 pb-lg-2 text-info mt-3">Already a Member? <a href="{% url 'login' %}" class="text-info">Login here</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Section: Design Block -->
 
-  {% comment %} Footer {% endcomment %}
-  <footer class="py-5 bg-dark">
-      <div class="container">
-          <p class="m-0 text-center text-light">Copyright &copy; Your Website 2023</p>
-      </div>
-  </footer>
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-light">Copyright &copy; Your Website 2023</p>
+        </div>
+    </footer>
 
-                    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-<script>
-    function togglePassword() {
-        const passwordInput = document.getElementById('pass');
-        const toggleIcon = document.getElementById('toggleIcon');
-        const isPassword = passwordInput.getAttribute('type') === 'password';
+    <!-- Password Toggle Script -->
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('pass');
+            const toggleIcon = document.getElementById('toggleIcon');
+            const isPassword = passwordInput.getAttribute('type') === 'password';
 
-        passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
-        toggleIcon.classList.toggle('bi-eye');
-        toggleIcon.classList.toggle('bi-eye-slash');
-    }
-</script>
+            passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+            toggleIcon.classList.toggle('bi-eye');
+            toggleIcon.classList.toggle('bi-eye-slash');
+        }
+    </script>
 
 {% endblock %}
