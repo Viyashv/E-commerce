@@ -1,9 +1,10 @@
 {% extends "base.html" %} {% block content %} {% include "nav.html" %}
+<!-- Carousal(Slider) -->
 
-<header class="mt-4">
+<header class="mt-4 border border-white bg-dark">
   <div id="carouselExampleIndicators" class="carousel slide">
     <!-- Indicators -->
-    <div class="carousel-indicators m-2">
+    <div class="carousel-indicators mb-0 bg-secondary">
       {% for j in products %}
       <div class="dot bg-light" data-bs-target="#carouselExampleIndicators"></div>
       {% endfor %}
@@ -27,15 +28,16 @@
 
     <!-- Navigation Buttons -->
     <button class="carousel-control-prev" onclick="changeSlide(-1)">
-      <span aria-hidden="true"><i class="bi bi-arrow-left-circle-fill fs-1"></i></span>
+      <span aria-hidden="true"><i class="bi bi-arrow-left-circle-fill fs-1 text-white"></i></span>
       <span class="visually-hidden">Previous</span>
     </button>
     <button class="carousel-control-next" onclick="changeSlide(1)">
-      <span aria-hidden="true"><i class="bi bi-arrow-right-circle-fill fs-1"></i></span>
+      <span aria-hidden="true"><i class="bi bi-arrow-right-circle-fill fs-1 text-white"></i></span>
       <span class="visually-hidden">Next</span>
     </button>
   </div>
 </header>
+
 <!-- Section-->
 <section class="py-5">
   <div class="container px-4 px-lg-5 mt-5">
@@ -75,11 +77,11 @@
         </li>
       </ul>
     </div>
-    <hr class="border border-5">
+    <hr class="border border-dark mb-5">
     <div class="row gx-3 gx-lg-4 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4">
       {% for i in products %}
       <div class="col mb-4">
-        <div class="card h-100 border hover-zoom d-flex align-items-center cards">
+        <div class="card h-100 border border-dark hover-zoom d-flex align-items-center cards shadow">
           <!-- Product image -->
           <img class="card-img-top mt-2 w-90" src="{{ i.image.url }}" alt="..." loading="lazy">
       
@@ -104,6 +106,7 @@
   </div>
 </section>
 <!-- Section End -->
+
 <!-- Footer-->
 
 <footer class="py-5 bg-dark">

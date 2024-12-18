@@ -30,7 +30,7 @@
                             {% for com in category.com_set.all %}
                             <li class="w-max-content">
                                 <a class="text-white text-decoration-none d-block py-1" href="{% url 'sub_category' com.id %}">
-                                    <i class="bi bi-check-circle"></i> {{ com.brand }}
+                                    <i class="bi bi-caret-right-fill"></i> {{ com.brand }} 
                                 </a>
                             </li>
                             {% endfor %}
@@ -47,7 +47,7 @@
             <div class="row gx-3 gx-lg-3 row-cols-1 row-cols-md-2 row-cols-xl-4 justify-content-center">
                 {% for j in product %}
                 <div class="col mb-5">
-                    <div class="card h-100 border hover-zoom d-flex align-items-center shadow">
+                    <div class="card h-100 border-dark hover-zoom d-flex align-items-center shadow cards">
                         <!-- Product image-->
                         <img class="card-img-top mt-2" src="{{ j.image.url }}" alt="{{ j.name }}" loading="lazy">
                         <!-- Product details-->

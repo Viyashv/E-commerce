@@ -3,19 +3,19 @@
 {% block content %}
 
 {% include "nav.html" %}
-
+<!-- Main Content -->
 <section class="container min-vh-100">
   <!-- Navigation Buttons for Ordered Products and Add to Cart -->
   <div class="mt-4">
     <ul class="nav nav-pills nav-justified mb-3" role="tablist">
       <li class="nav-item bg-primary rounded-5 me-4">
-        <a class="nav-link text-light" href="{% url 'cart' %}?status=True">
+        <a class="nav-link text-warning" href="{% url 'cart' %}?status=True">
           Ordered Product
           <span class="badge bg-dark text-white ms-1 rounded-pill">{{ ord_counts }}</span>
         </a>
       </li>
       <li class="nav-item bg-primary rounded-5">
-        <a class="nav-link text-light" href="{% url 'cart' %}?status=False">
+        <a class="nav-link text-warning" href="{% url 'cart' %}?status=False">
           Add to Cart
           <span class="badge bg-dark text-white ms-1 rounded-pill">{{ cart_counts }}</span>
         </a>

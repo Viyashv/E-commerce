@@ -1,0 +1,108 @@
+/* Optional: Custom styling for dark mode */
+    .dark-mode {
+      background-color: #121212 !important;
+      color: white !important;
+    }
+    .dark-mode .btn-primary {
+      background-color: #0d6efd;
+      border-color: #0d6efd;
+    }
+    .dark-mode .card {
+      background-color: #1e1e1e;
+      border-color: #444;
+    }
+    .dark-mode .navbar-light {
+      background-color: #1e1e1e !important;
+    }
+    .dark-mode .navbar-light .navbar-nav .nav-link {
+      color: white;
+    }
+    .dark-mode .navbar-light .navbar-brand {
+      color: white;
+    }
+    :root {
+      --bs-body-bg: #ffffff;
+      --bs-body-color: #000000;
+      --bs-card-bg: #f8f9fa;
+      --bs-card-border-color: #dee2e6;
+      --bs-link-color: #0d6efd;
+      --bs-border-color: #000000;
+      /* Button */
+      --btn-outline-border: #343a40; /* Default dark border for light theme */
+      --btn-outline-text: #343a40;   /* Default dark text for light theme */
+      --btn-outline-hover-bg: #343a40; /* Default dark background for hover in light theme */
+      --btn-outline-hover-text: #ffffff; /* White text on hover in light theme */
+      /*Carousal*/
+      --carousel-bg: #000000; /* Light background */
+      --carousel-dot: rgb(0, 0, 0); /* Gray dots */
+      --carousel-dot-active: #ffffff; /* Darker dot for active */
+      --carousel-nav: #343a40; /* Dark navigation icons */
+      --carousel-indicators-bg: rgba(156, 165, 175, 0.8); /* Light transparent background */
+    }
+  
+    [data-bs-theme="dark"] {
+      --bs-body-bg: #121212;
+      --bs-body-color: #ffffff;
+      --bs-card-bg: #1e1e1e;
+      --bs-card-border-color: #2a2a2a;
+      --bs-link-color: #bb86fc;
+      --bs-border-color: #ffffff; /* White border for dark theme */
+      --btn-outline-border: #ffffff; /* White border for dark theme */
+      --btn-outline-text: #ffffff;   /* White text for dark theme */
+      --btn-outline-hover-bg: #ffffff; /* White background for hover in dark theme */
+      --btn-outline-hover-text: #000000; /* Black text on hover in dark theme */
+      /* Carousal */
+      --carousel-bg: #a1a6aa; /* Dark background */
+      --carousel-dot: Black; /* Light gray dots */
+      --carousel-dot-active: #000000; /* White for active dot */
+      --carousel-nav: #ffffff; /* White navigation icons */
+      --carousel-indicators-bg: rgba(33, 37, 41, 0.8); /* Dark transparent background */
+    }
+    /* Optional: Custom styling for Button */
+    .btn-outline-dark {
+      color: var(--btn-outline-text);
+      border: 1px solid var(--btn-outline-border);
+      background-color: transparent;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-outline-dark:hover {
+      color: var(--btn-outline-hover-text);
+      background-color: var(--btn-outline-hover-bg);
+    }
+    /* carusol theme change css*/
+    .carousel {
+      background-color: var(--carousel-bg);
+      transition: background-color 0.3s ease; /* Smooth transition */
+    }
+    
+    .carousel-indicators .dot {
+      width: 10px;
+      margin: 0 5px;
+      background-color: var(--carousel-dot);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .carousel-indicators .dot.active {
+      background-color: var(--carousel-dot-active);
+    }
+    
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: var(--carousel-nav);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      transition: background-color 0.3s ease;
+    }
+
+    .carousel-indicators {
+      background-color: var(--carousel-indicators-bg); /* Themed background color */
+      border-radius: 0.5rem; /* Optional: Rounded corners */
+      display: flex; /* Flex layout for better alignment */
+      justify-content: center;
+      align-items: center;
+      transition: background-color 0.3s ease; /* Smooth theme transition */
+    }
