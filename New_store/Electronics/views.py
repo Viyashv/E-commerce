@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 # from django.contrib.gis.geoip2 import GeoIP2
 import django
 from django.db.models import Q
+from django.utils.safestring import mark_safe
 
  
 # Create your views here.
@@ -295,7 +296,7 @@ def MyProfile(request):
             lastname = request.POST.get("lastname")
             username = request.POST.get("username")
             email = request.POST.get("email")
-            
+
             fields_to_update = {}
 
             if firstname:
@@ -315,7 +316,8 @@ def MyProfile(request):
 
             if fields_to_update:
                 User.objects.filter(username=request.user.username).update(**fields_to_update)
-                messages.success(request,f"Successfully Updated")
+                lst = '<br>'.join([f"<b>{key}</b>: {value}" for key, value in fields_to_update.items()])
+                messages.success(request,mark_safe(f"Successfully Updated<br>{lst}"))
                 return redirect("my_profile")
         return render(request , "my_profile.html",{"categories":categories ,"counts":counts})
     return redirect('login')
