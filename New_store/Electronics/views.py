@@ -295,15 +295,28 @@ def MyProfile(request):
             lastname = request.POST.get("lastname")
             username = request.POST.get("username")
             email = request.POST.get("email")
-            if User.objects.filter(Q(username__iexact=username) | Q(email__iexact=email)).exists():
-                messages.error(request , "Username or email already exists")
+            
+            fields_to_update = {}
+
+            if firstname:
+                fields_to_update['first_name'] = firstname
+            if lastname:
+                fields_to_update['last_name'] = lastname
+            if username:
+                if User.objects.filter(username__iexact=username).exists():
+                    messages.error(request , "Username already exists")
+                else:
+                    fields_to_update['username'] = username
+            if email:
+                if User.objects.filter(email__iexact=email).exists():
+                    messages.error(request , "Email already exists")
+                else:
+                    fields_to_update['email'] = email
+
+            if fields_to_update:
+                User.objects.filter(username=request.user.username).update(**fields_to_update)
+                messages.success(request,f"Successfully Updated")
                 return redirect("my_profile")
-            User.objects.filter(username = request.user.username).update(first_name = firstname,
-                                                                                last_name=lastname,
-                                                                                username=username,
-                                                                                    email=email)
-            messages.success(request,f"Successfully Updated")
-            return redirect("my_profile")
         return render(request , "my_profile.html",{"categories":categories ,"counts":counts})
     return redirect('login')
 
