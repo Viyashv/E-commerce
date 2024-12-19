@@ -34,7 +34,7 @@ def login(request): # Login page
         password = request.POST['password']
         user = auth.authenticate(username = username , password = password)
 
-        login_user = User.objects.filter(username__iexact = username)
+        login_user = User.objects.filter(username = username)
         if not(login_user):
             messages.error(request , "Invalid Username")
             return redirect('login')
@@ -54,34 +54,30 @@ def login(request): # Login page
 
 def register(request): # Register Page
     categories = Category.objects.all()
-    counts = Cart.objects.all().count()-1
+    counts = max(0, Cart.objects.count() - 1)
     if request.POST:
-        firstname = request.POST["firstname"]
-        lastname = request.POST["lastname"]
-        email = request.POST["email"]
-        password = request.POST["password"]
+        # Retrieve form data
+        firstname = request.POST.get("firstname", "").strip()
+        lastname = request.POST.get("lastname", "").strip()
+        email = request.POST.get("email", "").strip()
+        username = request.POST.get("username", "").strip()
+        password = request.POST.get("password", "").strip()
 
-        duplicate = User.objects.filter(username = email).exists()
+        print(f"firstname :- {firstname} - lastname :- {lastname} - email :- {email} - username :- {username} - password :- {password}")
 
-
-        if duplicate:
-            messages.error(request , "Username already exists")
+         # Check for duplicate username or email
+        if User.objects.filter(Q(username__iexact=username) | Q(email__iexact=email)).exists():
+            messages.error(request , "Username or email already exists")
             return redirect("register")
         
         if not(firstname and email and lastname and password):
             messages.error(request , "Please fill all the fields")
             return redirect("register")
         else:
-            new_user = User.objects.create_user(first_name = firstname ,
-                                                 last_name = lastname ,
-                                                 username = email ,
-                                                 password = password)
+            new_user = User.objects.create_user(first_name = firstname ,last_name = lastname ,username = username ,password = password ,email=email)
             new_user.save()
             return redirect('login')
-
-
-    return render(request , 'register.html',{"categories":categories,
-                                               "counts":counts})
+    return render(request , 'register.html',{"categories":categories,"counts":counts})
 
 
 
@@ -291,7 +287,25 @@ def sort_products(request):
     return render(request , "index.html" , {"products":products ,"categories":categories ,"counts":counts})
 
 def MyProfile(request):
-    return render(request , "my_profile.html")
+    if request.user.is_authenticated:
+        categories = Category.objects.all()
+        counts = Cart.objects.all().count()-1
+        if request.POST:
+            firstname = request.POST.get("firstname")
+            lastname = request.POST.get("lastname")
+            username = request.POST.get("username")
+            email = request.POST.get("email")
+            if User.objects.filter(Q(username__iexact=username) | Q(email__iexact=email)).exists():
+                messages.error(request , "Username or email already exists")
+                return redirect("my_profile")
+            User.objects.filter(username = request.user.username).update(first_name = firstname,
+                                                                                last_name=lastname,
+                                                                                username=username,
+                                                                                    email=email)
+            messages.success(request,f"Successfully Updated")
+            return redirect("my_profile")
+        return render(request , "my_profile.html",{"categories":categories ,"counts":counts})
+    return redirect('login')
 
 class CartPageView:
     def Uncart(request):

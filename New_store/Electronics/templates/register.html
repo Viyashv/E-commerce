@@ -40,30 +40,41 @@
                                     <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px; color: white;">Register into your account</h5>
                                 </div>
 
-                                <!-- Form Fields -->
+                                <!-- Form Fields First name/Last name-->
                                 <div class="row">
                                     <!-- First Name -->
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline form-floating text-info border-bottom border-2 border-secondary rounded-2">
-                                            <input type="text" id="name" required oninput="this.value=(this.value.match('[a-zA-Z]+'))" class="form-control bg-transparent border-0 shadow-none text-info" placeholder="First Name" name="firstname" data-sb-validations="required"/>
-                                            <label class="form-label bg-transparent" for="name">First name</label>
+                                            <input type="text" id="firstname" required pattern="[a-zA-Z]+" class="form-control bg-transparent border-0 shadow-none text-info" placeholder="First Name" name="firstname" data-sb-validations="required"/>
+                                            <label class="form-label bg-transparent" for="firstname">First name</label>
                                         </div>
                                     </div>
                                     <!-- Last Name -->
                                     <div class="col-md-6 mb-4">
                                         <div class="form-floating text-info border-bottom border-2 border-secondary rounded-2">
-                                            <input type="text" id="form3Example2" class="form-control bg-transparent border-0 shadow-none text-info"  placeholder="Last Name" name="lastname" required/>
-                                            <label class="form-label bg-transparent" for="form3Example2">Last name</label>
+                                            <input type="text" id="lastname" pattern="[a-zA-Z]+" class="form-control bg-transparent border-0 shadow-none text-info" placeholder="Last Name" name="lastname" required/>
+                                            <label class="form-label bg-transparent" for="lastname">Last name</label>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Email -->
-                                <div class="form-floating mb-4 text-info border-bottom border-2 border-secondary rounded-2">
-                                    <input type="email" id="form3Example3" class="form-control bg-transparent border-0 shadow-none text-info" placeholder="Email" name="email" required/>
-                                    <label class="form-label bg-transparent" for="form3Example3">Email address</label>
+                                <!-- UserName / Email -->
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-floating text-info border-bottom border-2 border-secondary rounded-2">
+                                            <input type="text" pattern="[a-zA-Z]+" id="username" class="form-control bg-transparent border-0 shadow-none text-info" placeholder="Last Name" name="username" required />
+                                            <label class="form-label bg-transparent" for="username">User Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-floating text-info border-bottom border-2 border-secondary rounded-2">
+                                            <input type="email" id="email" 
+                                            class="form-control bg-transparent border-0 shadow-none text-info"  
+                                            placeholder="Last Name" name="email" required />
+                                            <label class="form-label bg-transparent" for="email">Email</label>
+                                        </div>
+                                    </div>
                                 </div>
-
                                 <!-- Password -->
                                 <div class="form-floating mb-4 d-flex text-info border-bottom border-2 border-secondary rounded-2">
                                     <input type="password" id="pass" class="form-control border-0 bg-transparent shadow-none text-info" placeholder="Password" name="password" required/>

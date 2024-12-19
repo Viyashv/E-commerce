@@ -1,70 +1,64 @@
 {% extends "base.html" %} {% block content %} {% include "nav.html" %}
 
-<h1 class="text-center">My Profile</h1>
 
-<section class="container-fluid min-vh-100">
-    <div class="card bg-glass" style="background-color: hsl(0deg 0% 100% / 11%) !important; border: 1px solid #14aeed5e; box-shadow: 0px -1px 32px 0 #100d15;">
-        <div class="card-body px-4 py-5 px-md-5">
+<section class="container-fluid min-vh-100 d-flex align-items-center justify-content-center flex-column">
+    <h1 class="text-center my-4 text-dark">My Profile</h1>
+    <div class="card shadow  rounded-4" style="max-width: 700px;">
+        <div class="card-body p-4">
             <!-- Registration Form -->
-            <form method="POST" class="needs-validation p-0" novalidate>
+            <form method="POST" class="needs-validation" novalidate>
                 {% csrf_token %}
-                <div class="d-flex align-items-center flex-column">
-                    <div class="pb-1">
+                <div class="text-center mb-5">
+                    <div class="pb-2">
                         <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
-                        <span class="h1 fw-bold mb-0">Register</span>
+                        <span class="h1 fw-bold mb-0 text-dark">Personal Details</span>
                     </div>
-                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px; color: white;">Register into your account</h5>
+                    <h5 class="fw-normal mb-3 text-secondary" style="letter-spacing: 1px;">You can update your profile below</h5>
                 </div>
 
                 <!-- Form Fields -->
-                <div class="row">
+                <div class="row g-3">
                     <!-- First Name -->
-                    <div class="col-md-6 mb-4">
-                        <div class="form-outline form-floating border-bottom border-2 border-secondary rounded-2">
-                            <input type="text" id="name" required oninput="this.value=(this.value.match('[a-zA-Z]+'))" class="form-control bg-transparent border-0 shadow-none" placeholder="First Name" name="firstname" data-sb-validations="required"/>
-                            <label class="form-label bg-transparent" for="name">First name</label>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="firstname" class="form-label">First Name</label>
+                            <input type="text" class="form-control" required pattern="[a-zA-Z]+" placeholder="{{user.first_name}}" value="{{user.first_name}}" id="firstname" name="firstname" aria-describedby="emailHelp">
                         </div>
                     </div>
                     <!-- Last Name -->
-                    <div class="col-md-6 mb-4">
-                        <div class="form-floating border-bottom border-2 border-secondary rounded-2">
-                            <input type="text" id="form3Example2" class="form-control bg-transparent border-0 shadow-none"  placeholder="Last Name" name="lastname" required/>
-                            <label class="form-label bg-transparent" for="form3Example2">Last name</label>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="lastname" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" required pattern="[a-zA-Z]+" placeholder="{{user.last_name}}" value="{{user.last_name}}" id="lastname" name="lastname"/>
                         </div>
                     </div>
                 </div>
 
-                <!-- Email -->
-                <div class="form-floating mb-4 border-bottom border-2 border-secondary rounded-2">
-                    <input type="email" id="form3Example3" class="form-control bg-transparent border-0 shadow-none" placeholder="Email" name="email" required/>
-                    <label class="form-label bg-transparent" for="form3Example3">Email address</label>
+                <!-- UserName -->
+                <div class="mb-3">
+                    <label for="username" class="form-label">User Name</label>
+                    <input type="text" class="form-control" required pattern="[a-zA-Z]+" placeholder="{{user.username}}" value="{{user.username}}" id="username" name="username"/>
                 </div>
 
-                 <!-- UserName -->
-                 <div class="form-floating mb-4 border-bottom border-2 border-secondary rounded-2">
-                    <input type="text" id="form3Example3" class="form-control bg-transparent border-0 shadow-none" placeholder="Email" name="email" required/>
-                    <label class="form-label bg-transparent" for="form3Example3">User Name</label>
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" required placeholder="{{user.email}}" value="{{user.email}}" id="email" name="email"/>
                 </div>
 
                 <!-- Submit Button -->
-                <div class="d-flex flex-column align-items-center">
-                    <div class="w-100">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block w-100">Submit</button>
-                    </div>
+                <div class="d-grid my-4">
+                    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
                 </div>
             </form>
         </div>
     </div>
 </section>
 
-
-<footer class="py-5 bg-dark">
+<footer class="py-5 bg-dark mt-4">
     <div class="container">
         <p class="m-0 text-center text-light">Copyright &copy; Your Website 2023</p>
     </div>
 </footer>
-
-
-
 
 {% endblock %}
