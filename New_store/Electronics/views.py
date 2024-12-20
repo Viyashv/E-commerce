@@ -242,6 +242,7 @@ class CartPageViews:
         Item_dlt.delete() #delete the cart item which is order
         return redirect('cart')
 
+
 class CategoryViews:
     def cate(request): # Logic after Category is Clicked
         inp_get = request.GET.get('categories')
@@ -285,12 +286,10 @@ def about(request):
     counts = Cart.objects.all().count()-1
     return render (request , "about.html",{"categories":categories ,"counts":counts})
 
-
 def slider(request):
     categories = Category.objects.all()
     all =Product.objects.all() 
     return render (request , "slider.html",{"categories":categories ,"all":all })
-
 
 def MyProfile(request): #function to display user profile and update
     if request.user.is_authenticated:
@@ -309,12 +308,12 @@ def MyProfile(request): #function to display user profile and update
                 fields_to_update['last_name'] = lastname
             if username:
                 if User.objects.filter(username__iexact=username).exists():
-                    fields_to_update['username'] = "Username already exists"
+                    messages.error(request, "Username already exists")
                 else:
                     fields_to_update['username'] = username
             if email:
                 if User.objects.filter(email__iexact=email).exists():
-                    fields_to_update['Email'] = "Email already exists"
+                    messages.error(request, "Email already exists")
                 else:
                     fields_to_update['email'] = email
 
