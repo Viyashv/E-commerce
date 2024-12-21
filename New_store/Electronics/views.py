@@ -243,23 +243,23 @@ class CartPageViews:
         return redirect('cart')
 
 
-class CategoryViews:
-    def cate(request): # Logic after Category is Clicked
-        inp_get = request.GET.get('categories')
-        categories = Category.objects.all()
-        s_category = Com.objects.filter(ct__name = inp_get)
-        product = Product.objects.filter(category__name = inp_get)
-        counts = Cart.objects.all().count()-1
-        return render(request , "category.html", {"categories":categories,'product':product,"s_category":s_category,"counts":counts})
-    
-    # Logic after Sub-Category is Clicked
-    def sub_category(request , id):
-        categories = Category.objects.all()
-        product = Product.objects.filter(brand = id)
-        counts = Cart.objects.all().count()-1
-        return render(request , "category.html" , {"categories":categories ,
-                                                'product':product ,
-                                                "counts":counts})
+
+def cate(request): # Logic after Category is Clicked
+    inp_get = request.GET.get('categories')
+    categories = Category.objects.all()
+    s_category = Com.objects.filter(ct__name = inp_get)
+    product = Product.objects.filter(category__name = inp_get)
+    counts = Cart.objects.all().count()-1
+    return render(request , "category.html", {"categories":categories,'product':product,"s_category":s_category,"counts":counts})
+
+# Logic after Sub-Category is Clicked
+def sub_category(request , id):
+    categories = Category.objects.all()
+    product = Product.objects.filter(brand = id)
+    counts = Cart.objects.all().count()-1
+    return render(request , "category.html" , {"categories":categories ,
+                                        'product':product ,
+                                        "counts":counts})
 
 def logout_user(request): # Logout Page
     logout(request)
@@ -320,7 +320,7 @@ def MyProfile(request): #function to display user profile and update
             if fields_to_update:
                 User.objects.filter(username=request.user.username).update(**fields_to_update)
                 lst = '<br>'.join([f"<b>{key}</b>: {value}" for key, value in fields_to_update.items()])
-                messages.success(request,mark_safe(f"Successfully Updated<br>{lst}"))
+                messages.success(request, mark_safe(f"Successfully Updated<br>{lst}"))
                 return redirect("my_profile")
-        return render(request , "my_profile.html",{"categories":categories ,"counts":counts})
+        return render(request, "my_profile.html", {"categories":categories, "counts":counts})
     return redirect('login')

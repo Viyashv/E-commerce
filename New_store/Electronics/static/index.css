@@ -343,3 +343,20 @@ body.dark-mode .swal-overlay {
 body.dark-mode .swal-button__loader div {
   background-color: hsla(0, 0%, 100%, 0.7);
 }
+
+@media (min-width: 768px) {
+  .offcanvas {
+      visibility: hidden !important;
+  }
+  
+}
+.offcanvas.show {
+  visibility: visible !important;
+}
+
+@media (min-width: 768px) {
+  .offcanvas-start {
+      visibility: visible !important;
+  }
+  
+}
