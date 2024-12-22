@@ -72,12 +72,14 @@
               </ul>
             </li>
           <!-- Cart Link -->
+          {% if user.is_authenticated %}
           <li class="nav-item me-1 mt-1">
             <a class="btn btn-outline-dark w-max-content" href="{% url 'cart' %}">
               <i class="bi-cart-fill me-1"></i> Cart
               <span class="badge bg-dark text-white ms-1 rounded-pill">{{ counts }}</span>
             </a>
           </li>
+          {% endif %}
         </ul>
           <!-- Search Form -->
           <div class="nav-item mt-1">

@@ -28,17 +28,16 @@ class HomePageView: # Logic for Home Page/search/sorting
 
     # Fuction to sort the home page Products
     def sort_products(request):
-        counts = Cart.objects.all().count()-1
+        counts = max(0,Cart.objects.all().count()-1)
         categories = Category.objects.all()
         sort_option = request.GET.get('sort' , "a-Z")
-        if sort_option == 'a-z':
-            products = Product.objects.order_by('name')
-        elif sort_option == 'z-a':
-            products = Product.objects.order_by('-name')
-        elif sort_option == 'low-to-high':
-            products = Product.objects.order_by('price')
-        elif sort_option == 'high-to-low':
-            products = Product.objects.order_by('-price')
+        sort_mapping = {
+            'a-z': 'name',
+            'z-a': '-name',
+            'low-to-high': 'price',
+            'high-to-low': '-price'
+        }
+        products=Product.objects.order_by(sort_mapping.get(sort_option, 'name'))
         return render(request , "index.html" , {"products":products ,"categories":categories ,"counts":counts})
         
     # Fuction to handle search bar logic
@@ -89,8 +88,6 @@ def register(request): # Register Page
         username = request.POST.get("username", "").strip()
         password = request.POST.get("password", "").strip()
 
-        print(f"firstname :- {firstname} - lastname :- {lastname} - email :- {email} - username :- {username} - password :- {password}")
-
          # Check for duplicate username or email
         if User.objects.filter(Q(username__iexact=username) | Q(email__iexact=email)).exists():
             messages.error(request , "Username or email already exists")
@@ -112,7 +109,7 @@ class CartPageViews:
     #cart function to display the cart items and handle the payment
     def cart(request):
         if request.user.is_authenticated:
-            counts = Cart.objects.all().count()-1
+            counts = max(0,Cart.objects.all().count()-1)
 
             ord_counts = Cart.objects.filter(ord_status = True).count()
             cart_counts = Cart.objects.filter(ord_status = False).count()-1
@@ -214,14 +211,17 @@ class CartPageViews:
         if request.POST:
             Quan = request.POST.get('quantity')
             Ql = Cart.objects.get(id = id)
-            if Ql.quantity == 1 or int(Quan) == Ql.quantity:
-                Ql.delete()
-                messages.success(request ,f"Removed Item from Cart")
-                return redirect('cart')
-            else:
-                Ql.quantity -= int(Quan)
-                Ql.save()
-                return redirect('cart')
+            if int(Quan) < Ql.quantity:
+                if Ql.quantity == 1 or int(Quan) == Ql.quantity:
+                    Ql.delete()
+                    messages.success(request ,f"Removed Item from Cart")
+                    return redirect('cart')
+                else:
+                    Ql.quantity -= int(Quan)
+                    Ql.save()
+                    return redirect('cart')
+            messages.error(request, f"Quantity is more than in cart")
+            return redirect('cart')
     
     #update function to update the quantity of the cart item        
     def update(request , id):
@@ -243,23 +243,21 @@ class CartPageViews:
         return redirect('cart')
 
 
+class CategoryPageViews:
+    def cate(request): # Logic after Category is Clicked 
+        inp_get = request.GET.get('categories')
+        categories = Category.objects.all()
+        s_category = Com.objects.filter(ct__name = inp_get)
+        product = Product.objects.filter(category__name = inp_get)
+        counts = max(0,Cart.objects.all().count()-1)
+        return render(request , "category.html", {"categories":categories,'product':product,"s_category":s_category,"counts":counts})
 
-def cate(request): # Logic after Category is Clicked
-    inp_get = request.GET.get('categories')
-    categories = Category.objects.all()
-    s_category = Com.objects.filter(ct__name = inp_get)
-    product = Product.objects.filter(category__name = inp_get)
-    counts = Cart.objects.all().count()-1
-    return render(request , "category.html", {"categories":categories,'product':product,"s_category":s_category,"counts":counts})
-
-# Logic after Sub-Category is Clicked
-def sub_category(request , id):
-    categories = Category.objects.all()
-    product = Product.objects.filter(brand = id)
-    counts = Cart.objects.all().count()-1
-    return render(request , "category.html" , {"categories":categories ,
-                                        'product':product ,
-                                        "counts":counts})
+    # Logic after Sub-Category is Clicked
+    def sub_category(request , id):
+        categories = Category.objects.all()
+        product = Product.objects.filter(brand = id)
+        counts = max(0,Cart.objects.all().count()-1)
+        return render(request , "category.html" , {"categories":categories ,'product':product ,"counts":counts})
 
 def logout_user(request): # Logout Page
     logout(request)
@@ -269,7 +267,7 @@ def logout_user(request): # Logout Page
 def products_all(request , id): # Logic after View option is Clicked on product
     categories = Category.objects.all()
 
-    counts = Cart.objects.all().count()-1
+    counts = max(0,Cart.objects.all().count()-1)
 
     products = Product.objects.get(id = id)
 
@@ -283,7 +281,7 @@ def products_all(request , id): # Logic after View option is Clicked on product
 
 def about(request):
     categories = Category.objects.all()
-    counts = Cart.objects.all().count()-1
+    counts = max(0,Cart.objects.all().count()-1)
     return render (request , "about.html",{"categories":categories ,"counts":counts})
 
 def slider(request):
@@ -302,25 +300,32 @@ def MyProfile(request): #function to display user profile and update
             email = request.POST.get("email")
 
             fields_to_update = {}
+            msg = {}
             if firstname:
                 fields_to_update['first_name'] = firstname
             if lastname:
                 fields_to_update['last_name'] = lastname
             if username:
                 if User.objects.filter(username__iexact=username).exists():
-                    messages.error(request, "Username already exists")
+                    msg['username'] = 'Username already exists or taken'
+                    messages.error(request , mark_safe(f"{msg['username']}"))
                 else:
                     fields_to_update['username'] = username
             if email:
                 if User.objects.filter(email__iexact=email).exists():
-                    messages.error(request, "Email already exists")
+                    msg['email'] = 'Email already exists or taken'
+                    messages.error(request , mark_safe(f"{msg['email']}"))
                 else:
                     fields_to_update['email'] = email
 
             if fields_to_update:
                 User.objects.filter(username=request.user.username).update(**fields_to_update)
-                lst = '<br>'.join([f"<b>{key}</b>: {value}" for key, value in fields_to_update.items()])
-                messages.success(request, mark_safe(f"Successfully Updated<br>{lst}"))
+                lst1 = '<br>'.join([f"<b>{key}</b>: {value}" for key, value in fields_to_update.items()])
+                if msg:
+                    lst2 = '<br>'.join([f"<b>{key}</b>: {value}" for key, value in msg.items()])
+                    messages.success(request, mark_safe(f"Updated: {lst1}<br>Errors: {lst2}"))
+                else:
+                    messages.success(request, mark_safe(f"Successfully Updated<br>{lst1}"))
                 return redirect("my_profile")
         return render(request, "my_profile.html", {"categories":categories, "counts":counts})
     return redirect('login')
